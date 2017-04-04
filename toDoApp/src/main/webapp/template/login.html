@@ -1,0 +1,23 @@
+<div class="col-md-6 col-md-offset-3">
+    <form class="" name="loginForm">
+        <div class="panel panel-primary" data-ng-controller="loginController as log">
+            <div class="panel-heading">Sign Up</div>
+            
+            <div class="panel-body">
+                <div class="form-group">
+                    <label>Email-Address:  </label>
+                    <input type="email" data-ng-model="email" class="form-control" placeholder="email" required="" />
+                </div>
+                <div class="form-group">
+                    <label>Password:  </label>
+                    <input type="password" data-ng-model="password" class="form-control" placeholder="Password" required="" /><br>
+                    <div data-ng-bind="errorMessage" style="color: red;text-align: center;"></div>
+                    <button type="button" data-ng-click="log.login()" name="button" class="btn btn-primary" data-ng-disabled="loginForm.$invalid">Login</button>
+               		 <div style="text-align: center;display: inline-block;"><a data-ui-sref="signUp">New User? Register Here</a></div>
+                	
+                </div>
+               
+            </div>
+        </div>
+    </form>
+</div>

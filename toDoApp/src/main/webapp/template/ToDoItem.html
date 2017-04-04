@@ -1,0 +1,47 @@
+<html lang="en" ng-app="todo">
+<head>
+
+	<title>Angular js Sortable Todo-List</title>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Angular js Todo-Sortable-List Example"/>
+	<meta name="author" content="Jay Kanakiya">
+
+</head>
+
+<body ng-controller="toDoCtrl" ng-init="init()">
+
+
+
+	<div class="row" id="todoapp">
+		<div class="form-group">
+			<input class="todoField" type="text" ng-model="title"placeholder="ToDo Title" /> 
+			<input type="text"ng-model="toDoItemDescription" placeholder="Description" ng-enter />
+			<button id="todoSubmit" class="btn btn-default" ng-click="addToDo()">Done</button>
+		</div>
+	</div>
+	
+
+<div class="container" id="playground">
+			<div class="row">
+				<div class="col-xs-3">
+					<div class="list-group">
+							   <div ng-repeat="x in todos">
+									<div>{{ x.title }}</div>
+									<div>{{ x.toDoItemDescription }}</div>
+									<div style="padding-top: 10px">
+				<button ng-hide="x.update" type="button"
+					data-ng-click="toDoCtrl.removeToDoItem(x.id)">delete</button>
+				
+			</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+</body>
+
+
+</html>

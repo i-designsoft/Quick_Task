@@ -9,14 +9,18 @@
 
 	<tx:annotation-driven />
 	<mvc:annotation-driven />
-	<!--To specify the resource locations -->
-	<mvc:resources location="/images/" mapping="/images/**" />
+
+	<mvc:resources location="/bower_components/" mapping="/bower_components/**"/>
+	<mvc:resources location="/images/" mapping="/images/**"/>
+	<mvc:resources location="/js/" mapping="/js/**"/>
+	<mvc:resources location="/template/" mapping="/template/**"/>
 
 	
 
 	<!--controller and services scan -->
 	<context:component-scan base-package="com.bridgeit.todoApplication.controller" />
-
+	<context:component-scan base-package="com.bridgeit.todoApplication.validation" />
+	<context:component-scan base-package="com.bridgeit.todoApplication.service" />
 
 	<!--To specify the view components -->
 	<bean
@@ -34,7 +38,7 @@
 	<bean id="pooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/ToDo_DB" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/ToDo_App" />
 		<property name="user" value="root" />
 		<property name="password" value="root" />
 		<property name="maxPoolSize" value="100" />
@@ -54,6 +58,9 @@
 				<value>
 					com.bridgeit.todoApplication.model.User
 				</value>
+				<value>
+					com.bridgeit.todoApplication.model.ToDoItem
+				</value>
 				
 			</list>
 		</property>
@@ -69,13 +76,11 @@
 		</property>
 	</bean>
 
-	
-	<bean id="userDAO" class="com.bridgeit.todoApplication.UserDAO.UserDAOImpl"></bean>
-	<bean id="userService" class="com.bridgeit.todoApplication.service.UserServiceImpl"></bean>
-	
-	
+	<bean id="userValidation" class="com.bridgeit.todoApplication.validation.UserValidation" />
+	<bean id="userDAO" class="com.bridgeit.todoApplication.DAO.DAOImpl.UserDAOImpl"></bean>
+	<bean id="toDoItemDAO" class="com.bridgeit.todoApplication.DAO.DAOImpl.ToDoItemDAOImpl"></bean>
+	<bean id="userservice" class="com.bridgeit.todoApplication.service.ServiceImpl.UserServiceImpl"></bean>
+	<bean id="toDoItemService" class="com.bridgeit.todoApplication.service.ServiceImpl.ToDoItemServieImpl"></bean>
 	
 <mvc:resources mapping="/static/**" location="/static/" />
-
-
 </beans>

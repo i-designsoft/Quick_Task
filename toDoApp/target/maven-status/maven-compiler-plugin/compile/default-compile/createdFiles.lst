@@ -1,9 +1,0 @@
-com/bridgeit/todoApplication/model/User.class
-com/bridgeit/todoApplication/service/UserService.class
-com/bridgeit/todoApplication/configuration/HelloWorldConfiguration.class
-com/bridgeit/todoApplication/service/UserServiceImpl.class
-com/bridgeit/todoApplication/configuration/HelloWorldInitializer.class
-com/bridgeit/todoApplication/model/Status.class
-com/bridgeit/todoApplication/controller/IndexController.class
-com/bridgeit/todoApplication/configuration/CORSFilter.class
-com/bridgeit/todoApplication/controller/RegistrationController.class

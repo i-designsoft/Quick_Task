@@ -15,7 +15,8 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
+  
+  <dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>4.3.3.RELEASE</version>
@@ -220,17 +221,7 @@
     <artifactId>bootstrap</artifactId>
     <version>3.3.5</version>
 </dependency>
-
-
-
-
-
-
-			
-	
-	
-		
-
+  
   </dependencies>
   <build>
   

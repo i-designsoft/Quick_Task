@@ -12,14 +12,14 @@ import com.bridgeit.todoApplication.model.User;
 public interface UserService {
 
 	
-User findById(long id);
-	
-	User findByName(String fullName);
-	
-	void saveUser(User user);
-	
-	void deleteUserById(long id);
+	void addEntity(User user) throws Exception;
 
-	List<User> findAllUsers(); 
-	public User authUser(String email, String password);
+	User getEntityById(int id) throws Exception;
+
+	List<User> getEntityList() throws Exception;
+
+	void deleteEntity(int id) throws Exception;
+
+	User authUser(String email, String password);
+
 }
