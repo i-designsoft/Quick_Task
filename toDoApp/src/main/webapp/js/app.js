@@ -18,7 +18,7 @@ var myApp = angular.module('todoApp', ['ui.router'])
   .state("toDoItem",{
     url:"/toDoItem",
     templateUrl:"template/ToDoItem.html",
-    controller:"toDoCtrl"
+   
   })  
   .state("signUp",{
     url:"/create",

@@ -1,47 +1,150 @@
-<html lang="en" ng-app="todo">
-<head>
-
-	<title>Angular js Sortable Todo-List</title>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Angular js Todo-Sortable-List Example"/>
-	<meta name="author" content="Jay Kanakiya">
-
-</head>
-
-<body ng-controller="toDoCtrl" ng-init="init()">
-
-
-
-	<div class="row" id="todoapp">
-		<div class="form-group">
-			<input class="todoField" type="text" ng-model="title"placeholder="ToDo Title" /> 
-			<input type="text"ng-model="toDoItemDescription" placeholder="Description" ng-enter />
-			<button id="todoSubmit" class="btn btn-default" ng-click="addToDo()">Done</button>
-		</div>
-	</div>
-	
-
-<div class="container" id="playground">
-			<div class="row">
-				<div class="col-xs-3">
-					<div class="list-group">
-							   <div ng-repeat="x in todos">
-									<div>{{ x.title }}</div>
-									<div>{{ x.toDoItemDescription }}</div>
-									<div style="padding-top: 10px">
-				<button ng-hide="x.update" type="button"
-					data-ng-click="toDoCtrl.removeToDoItem(x.id)">delete</button>
-				
+<div ng-controller="toDoCtrl as tdctl">
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#menu-toggle" id="menu-toggle"><span
+					class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
 			</div>
+
+			<div id="navbar" class="navbar-collapse collapse">
+
+				<ul class="nav navbar-nav">
+
+					<li><a><span class="glyphicon glyphicon-home"
+							aria-hidden="true"></span> ToDo Application</a></li>
+					<li>
+						<form class="navbar-form navbar-right" action="" method="GET"
+							style="margin-left: 720px">
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="Search..."
+									id="query" name="search" value="">
+								<div class="input-group-btn">
+									<button type="submit" class="btn btn-success">
+										<span class="glyphicon glyphicon-search"></span>
+									</button>
+								</div>
+							</div>
+						</form>
+					</li>
+					<li><a ng-click="reload()"> <span
+							class="glyphicon glyphicon-refresh" style="color: white"></span></a>
+					</li>
+					<li><button type="button" class="btn btn-danger glyphicon"
+							ng-click="isList = !isList"
+							ng-class="{'glyphicon-list': !isList, 'glyphicon-th-large': isList}"
+							style="margin-top: 10px"></button></li>
+					<li><a data-ng-click=tdctl.logout()><span
+							class="glyphicon glyphicon-off" aria-hidden="true"></span> Log
+							Out</a></li>
+				</ul>
+
+			</div>
+		</div>
+	</nav>
+
+	<div id="wrapper" class="toggled">
+		<div class="container-fluid">
+			<!-- Sidebar -->
+			<div id="sidebar-wrapper" style="margin-top: -30px">
+				<ul class="sidebar-nav">
+
+					<li class="sidebar-brand"><a href="#" class="navbar-brand">
+							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+							Welcome UmaShankar Chaurasiya
+					</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-home"
+							aria-hidden="true"></span> Archive</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-search"
+							aria-hidden="true"></span> Search</a></li>
+					<li><span class="glyphicon glyphicon-search"
+						aria-hidden="true"></span><font color="#337AB7"> STATISTICS</font>
+					</li>
+					<li><a href="#"><span class="glyphicon glyphicon-tasks"
+							aria-hidden="true"></span> Reports</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-stats"
+							aria-hidden="true"></span> Statistic</a></li>
+					<li><span class="glyphicon glyphicon-search"
+						aria-hidden="true"></span><font color="#337AB7">
+							ADMINISTRATION</font></li>
+					<li><a href="#"><span class="glyphicon glyphicon-user"
+							aria-hidden="true"></span> Users</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-envelope"
+							aria-hidden="true"></span> Messages</a></li>
+				</ul>
+			</div>
+			<!-- /#sidebar-wrapper -->
+
+			<!-- Page Content -->
+			<div id="page-content-wrapper">
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="expandcollapse-item slideDown card-3"
+								style="width: 85%; margin-left: 85px; padding: 0px" id="todoapp">
+								<div data-placeholder='Take a notes...'
+									data-ng-click="active = !active"
+									data-ng-class="{'expandcollapse-heading-collapsed': active,'expandcollapse-heading-expanded': !active}"
+									style="width: 465px"></div>
+							</div>
+
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="slideDown card-1" data-ng-hide="active"
+										style="width: 85%; margin-left: 85px">
+
+										<div class="form-group" style="margin-left: 0px">
+											<div>
+												<input class="todoField" type="text" ng-model="title"
+													style="width: 700px; padding-bottom: 15px" "/>
+											</div>
+											<div>
+												<input type="text" ng-model="toDoItemDescription"
+													placeholder="Description"
+													style="width: 700px; padding-bottom: 15px" ng-enter />
+											</div>
+											<div>
+												<button id="todoSubmit" class="btn btn-default"
+													style="margin-left: 91%; border-color: white"
+													ng-click="addToDo()">Done</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="cont" ng-class="{list: isList, grid: !isList}">
+								<div class="cardRow" style="margin-left: 85px;"
+									ng-class="{list: isList, grid: !isList}">
+									<div class="card"
+										ng-class="{'col-xs-4':!isList, 'col-md-4':!isList, 'col-sm-4':!isList,'col-lg-3':!isList}"
+										ng-repeat="x in todos track by $index">
+										<div class="slideDown  showhim card-4">
+											<h3>{{ x.title }}</h3>
+											<div>{{ x.toDoItemDescription }}</div>
+											<div class="showme editBar">
+												<label>Reminder:</label><input type="date"
+													ng-model="reminder">
+												<button data-ng-click="tdctl.deleteTask(x.id)">delete</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
 						</div>
 					</div>
 				</div>
 			</div>
+			<!-- /#page-content-wrapper -->
 		</div>
-	
-</body>
-
-
-</html>
+	</div>
+</div>

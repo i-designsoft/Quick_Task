@@ -61,7 +61,7 @@ public class ToDoItemDAOImpl implements ToDoItemDAO{
 	}
 
 	public void updateToDoById(long id) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -69,6 +69,8 @@ public class ToDoItemDAOImpl implements ToDoItemDAO{
 public List<ToDoItem> findAllToDoItemByUserId(long id) {
 	
 	Session session = sessionFactory.openSession();
+
+            
 	Criteria ctr = session.createCriteria(ToDoItem.class);
 	List<ToDoItem> toDoList = ctr.add(Restrictions.eq("user.id", id)).list();
 	session.close();

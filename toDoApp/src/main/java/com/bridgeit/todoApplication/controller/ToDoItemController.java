@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.bridgeit.todoApplication.JSON.ErrorResponse;
+import com.bridgeit.todoApplication.JSON.Response;
 import com.bridgeit.todoApplication.model.ToDoItem;
 import com.bridgeit.todoApplication.model.User;
 import com.bridgeit.todoApplication.service.ToDoItemService;
@@ -104,6 +107,27 @@ public class ToDoItemController {
         return new ResponseEntity<ToDoItem>(HttpStatus.NO_CONTENT);
     }
  
-     
+    @RequestMapping(value = "toDoUpdate/{id}", method = RequestMethod.POST)
+	public ResponseEntity<Void> updateToDoItem(@RequestBody ToDoItem todo, @PathVariable("id") int toDoId,UriComponentsBuilder ucBuilder, HttpServletRequest request) {
+
+
+		HttpSession sess = request.getSession();
+		User user = (User) sess.getAttribute("user");
+		todo.setUser(user);
+		todo.setId(toDoId);
+		todo.setToDoCreatedDate(new Date());
+		
+		System.out.println("update");
+		HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(ucBuilder.path("/toDoItem/{id}").buildAndExpand(todo.getId()).toUri());
+		try {
+			toDoItemService.saveToDoItem(todo);
+			
+			 
+		        return new ResponseEntity<Void>(headers, HttpStatus.OK);
+		} catch (Exception e) {
+			 return new ResponseEntity<Void>(headers, HttpStatus.NOT_FOUND);
+		}
+    }
 
 }
