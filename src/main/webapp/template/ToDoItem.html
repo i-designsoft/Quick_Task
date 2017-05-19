@@ -1,0 +1,342 @@
+
+<div ng-controller="toDoCtrl as tdctl">
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#menu-toggle" id="menu-toggle"><span
+					class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
+			</div>
+
+			<div id="navbar" class="navbar-collapse collapse">
+
+				<ul class="nav navbar-nav">
+
+					<li>
+					<a class="navbar-brand" href=""><h1 style="margin-top: 0px!important;line-height: 0.5!important;color: olivedrab;">Quick Task </h1></a>
+					<!-- <a><span class="glyphicon glyphicon-home"
+							aria-hidden="true"></span> ToDo Application</a> --></li>
+					<li style="margin-top: 4px">
+						<form class="navbar-form navbar-right" action="" method="GET"
+							style="margin-left: 15px">
+							<div class="input-group" style="width: 750px">
+								<input type="text" class="form-control" placeholder="Search..."
+									id="query" name="search" value="" ng-model="searchtext">
+								<div class="input-group-btn">
+									<button type="submit" class="btn btn-success">
+										<span class="glyphicon glyphicon-search"></span>
+									</button>
+								</div>
+							</div>
+						</form>
+					</li>
+					<li></li>
+					<li></li>
+					<li style="margin-left: 5px; margin-top: 5px"><a
+						ng-click="reload()"> <span class="glyphicon glyphicon-refresh"
+							style="color: white"></span></a></li>
+					<li id="noti_Container">
+						<div id="noti_Counter"></div> <!--SHOW NOTIFICATIONS COUNT.--> <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
+						<div id="noti_Button" class="glyphicon glyphicon-bell"></div> <!--THE NOTIFICAIONS DROPDOWN BOX.-->
+						<div id="notifications">
+							<div class="head3">Notifications</div>
+							<div style="height: 300px;"></div>
+							<div class="seeAll">
+								<a href="">See All</a>
+							</div>
+						</div>
+					</li>
+					<li><button type="button" class="btn btn-danger glyphicon"
+							ng-click="isList = !isList"
+							ng-class="{'glyphicon-list': !isList, 'glyphicon-th-large': isList}"
+							style="margin-top: 10px; margin-left: 50px"></button></li>
+
+					<!-- <li><a data-ng-click=tdctl.logout()><span
+							class="glyphicon glyphicon-off" aria-hidden="true"></span> Log
+							Out</a></li> -->
+
+
+					<li><a href="" class="dropdown-toggle" data-toggle="dropdown"
+						style="margin-right: -6px"><img id="menu"
+							class="circular--square1" src="images/uma1.jpg"></a>
+						<div style="width: 430px; height: 260px; margin-left: -320px"
+							class="dropdown-menu">
+							<div class="profile1">
+
+								<img class="circular--square" src="images/uma1.jpg">
+
+							</div>
+							<div class="profile2">
+								<span
+									style="position: absolute; padding: 14px 0px 0px 32px; font-size: 1.8em; font-weight: bold;">{{user.fullName}}
+								</span> <span
+									style="position: absolute; padding: 50px 0px 0px 32px; font-size: 1.2em;">{{user.email}}</span>
+								<div class="profile3">
+									<button class="btn btn-primary btn-lg accBtn" type="button"
+										value="My Account" data-ng-click="hc.signout()">My
+										Account</button>
+								</div>
+							</div>
+
+							<hr>
+							<div style="background: #E8E8E8;">
+								<div>
+									<button class="btn btn-default btn-lg"
+										style="margin: 15px 20px 0px 0px; float: right; border: 1px solid #c6c6c6;"
+										type="button" value="signout" data-ng-click="tdctl.logout()">Sign
+										out</button>
+								</div>
+								<div>
+									<button class="btn btn-default btn-lg"
+										style="margin: 15px 20px 0px 19px; float: left; border: 1px solid #c6c6c6;"
+										type="button" value="Add Account"
+										data-ng-click="tdctl.logout()">Add account</button>
+								</div>
+							</div>
+						</div></li>
+
+				</ul>
+
+			</div>
+		</div>
+	</nav>
+
+
+
+	<div id="wrapper" class="toggled">
+		<div class="container-fluid">
+			<!-- Sidebar -->
+			<div id="sidebar-wrapper" style="margin-top: -28px">
+
+				<ul class="sidebar-nav">
+					<li><img class="circular--square" src="images/uma1.jpg"
+						style="margin-top: 15px" /></li>
+					<li class="sidebar-brand"><a href="" class="navbar-brand">
+							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+							<font color="#337AB7">{{user.fullName}}</font>
+
+					</a></li>
+
+					<li><a href=""><span class="glyphicon glyphicon-home"
+							aria-hidden="true"></span> Note</a></li>
+					<li><a href=""><span class="glyphicon glyphicon-bell"
+							aria-hidden="true"></span> Reminder</a></li>
+					<li><span class="glyphicon glyphicon-search"
+						aria-hidden="true"></span><font color="#337AB7"> STATISTICS</font>
+					</li>
+					<li><a href=""><span class="glyphicon glyphicon-cog"
+							aria-hidden="true"></span> Setting</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-stats"
+							aria-hidden="true"></span> Statistic</a></li>
+					<!-- <li><span class="glyphicon glyphicon-search"
+						aria-hidden="true"></span><font color="#337AB7">
+							ADMINISTRATION</font></li>
+					<li><a href="#"><span class="glyphicon glyphicon-user"
+							aria-hidden="true"></span> Users</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-envelope"
+							aria-hidden="true"></span> Messages</a></li> -->
+
+
+				</ul>
+			</div>
+
+
+			<!-- Page Content -->
+			<div id="page-content-wrapper">
+
+
+
+
+
+
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="expandcollapse-item slideDown card-3"
+								style="width: 600px; height: 46px !important; margin-left: 100px; padding: 0px">
+								<div data-placeholder='Take a notes...'
+									data-ng-click="active = !active"
+									data-ng-class="{'expandcollapse-heading-collapsed': active,'expandcollapse-heading-expanded': !active}"
+									style="width: 100%"></div>
+							</div>
+
+							<div class="row">
+								<div class="col-lg-12" style="width: 600px; margin-left: 100px;">
+									<div class="slideDown card-3" data-ng-hide="active"
+										style="width: 600px; margin-left: 0px">
+
+										<div class="form-group" style="margin-left: 0px">
+											<div>
+												<input class="todoField" type="text" ng-model="title"
+													style="width: 700px; padding-bottom: 15px"
+													placeholder="Title" />
+											</div>
+
+											<div>
+												<input type="text" ng-model="toDoItemDescription"
+													placeholder="Take a note..."
+													style="width: 700px; padding-bottom: 15px" ng-enter />
+											</div>
+											<div>
+												<label>Remind Me:</label> <input type="date"
+													datetime="yyyy-MM-dd" ng-model="reminder"
+													placeholder="reminder" style="padding-bottom: 15px"
+													ng-enter />
+											</div>
+
+
+											<div>
+												<button id="todoSubmit" class="btn btn-default"
+													style="margin-left: 89%; border-color: white"
+													ng-click="addToDo()">Done</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<p>
+							<div id="open-popup" style="width: 115%">
+								<div class="cont " ng-class="{list: isList, grid: !isList}">
+								
+									<div class="cardRow slides " style="margin-left: 0px;">
+										<div class="card sortable grid "
+											ng-repeat="x in todos | orderBy:'-'| filter  :searchtext track by $index"
+											ng-class="{'col-xs-3':!isList, 'col-md-3':!isList, 'col-sm-3':!isList,'col-lg-3':!isList}">
+											
+											<div class="slideDown  showhim card-4 draggable-element">
+											
+												<div ng-click="openPopup(x)">
+													<h3>{{ x.title }}</h3>
+													<div id="abc" style="word-wrap: break-word;">{{
+														x.toDoItemDescription }}</div>
+												</div>
+												<div class="showhim showme editBar">
+
+														
+													<span ><button 
+															data-toggle="dropdown" id="d" style="border: none;"
+															class="btn btn-default btn dropdown-toggle btnedit" type="button"
+															type="button">
+															<i class="glyphicon glyphicon-hand-up"></i>
+														</button>
+														<div class="dropdown-menu"
+															style="margin-left: 10px; min-width: 255px; top: 87%; padding: 5px; line-height: 2.5">
+															<div>Reminder:</div>
+															<hr>
+															<div
+																data-ng-click="tdctl.doReminder(x.id,$index,'Today')">
+																<span>Later today</span><span
+																	style="float: right; padding-right: 10px">20:00</span>
+															</div>
+															<div
+																data-ng-click="tdctl.doReminder(x.id,$index,'Tomorrow')">
+																<span>Tomorrow</span><span
+																	style="float: right; padding-right: 10px">08:00</span>
+															</div>
+															<div data-ng-click="tdctl.doReminder(x.id,$index,'Next-Week')">
+																<span>Next Week</span><span
+																	style="float: right; padding-right: 10px">08:00</span>
+															</div>
+															<div>
+																<span>Home</span><span
+																	style="float: right; padding-right: 10px"></span>
+															</div>
+															<div>
+																<span class="glyphicon glyphicon-time"></span><span
+																	style="margin-left: 15px">Select Date and Time</span>
+															</div>
+														</div></span> <span><button data-toggle="dropdown" id="d"
+															style="border: none;"
+															class="btn btn-default btn dropdown-toggle btnedit" type="button"
+															type="button">
+															<i class="glyphicon glyphicon-option-vertical"></i>
+														</button>
+														<div class="dropdown-menu"
+															style="margin-left: 10px; min-width: 150px; top: 87%; padding: 5px; line-height: 2.5">
+
+															<div data-ng-click="tdctl.deleteTask(x.id)">
+																<span>Delete note</span>
+															</div>
+															<div data-ng-click="">
+																<span>Add label</span>
+															</div>
+															<div data-ng-click="">
+																<span>Make a copy</span>
+															</div>
+															<div>
+																<span>Copy to Google Docs</span>
+															</div>
+
+														</div></span> 
+														<span class="dropup"><button
+															
+															data-ng-style="cardColor" class="dropdown-toggle btnedit"
+															type="button" data-toggle="dropdown">
+															<i class="glyphicon glyphicon-tint btnedit" ></i>
+														</button>
+														<div id="test" style="width: auto;" class="dropdown-menu"
+															role="menu" aria-labelledby="menu1">
+															<ul class="ul" style="padding-left: 20px">
+																<li>
+																	<div 
+																		data-ng-click="changeCardColor('White',$event)"
+																		style="background-color: transparent;" class="test1"></div>
+																	<div  data-ng-click="changeCardColor('#ff6666',$event)"
+																		style="background-color: #ff6666;" class="test1"></div>
+																		
+																		<div
+																		data-ng-click="changeCardColor('#ffa366',$event)"
+																		style="background-color:  #ffa366;" class="test1"></div>
+																	
+																</li>
+																<hr>
+																<li>
+																	<div 
+																		data-ng-click="changeCardColor('#bfbfbf',$event)"
+																		style="background-color:#bfbfbf;" class="test1"></div>
+																	<div 
+																		data-ng-click="changeCardColor('#99d6ff',$event)"
+																		style="background-color: #99d6ff;" class="test1"></div>
+																	<div 
+																		data-ng-click="changeCardColor('#ccffb3',$event)"
+																		style="background-color:  #ccffb3;" class="test1"></div>
+																</li>
+
+															</ul>
+														</div> </span>
+
+												</div>
+												<hr class="style6">
+												<div style="padding-top: 35px">
+													<span class="glyphicon glyphicon-time"></span><span
+														style="margin-left: 5px; color: graytext;">Reminder:</span><span
+														style="color: graytext">{{ x.reminder | date }}</span>
+												</div>
+											</div>
+										</div>
+										<!-- showhim showme openPopup(x) -->
+									</div>
+								</div>
+							</div>
+							</p>
+							<div class="overlay"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /#page-content-wrapper -->
+		</div>
+	</div>
+
+</div>
+
+
+

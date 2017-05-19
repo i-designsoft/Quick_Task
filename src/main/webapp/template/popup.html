@@ -1,0 +1,30 @@
+<div class="modal fade" id="myModal" role="dialog"
+	ng-controller="toDoCtrl as tdctl" style="background-color: rgba(138, 137, 136, 0.3) !important">
+	<div class="modal-dialog">
+
+
+		<div class="modal-content" style="margin-top: 100px">
+			<div class="modal-header">
+
+
+				<div id="title{{todo.id}}" contenteditable="true" style="word-wrap: break-word;">
+					<h4 class="modal-title">{{ todo.title }}</h4>
+				</div> 
+
+			</div>
+			<div id="description{{todo.id}}" contenteditable="true"
+				style="word-wrap: break-word;">
+				<div>{{ todo.toDoItemDescription }}</div>
+			</div>
+			<div>
+				<label>Reminder:</label>{{ todo.reminder | date }}
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal"
+				ng-click="tdctl.update(todo.id,indx,todo)">Update</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+	</div>
+
+</div>
