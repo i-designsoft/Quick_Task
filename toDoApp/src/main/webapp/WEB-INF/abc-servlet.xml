@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<tx:annotation-driven />
+	<mvc:annotation-driven />
+
+	<mvc:resources location="/bower_components/" mapping="/bower_components/**"/>
+	<mvc:resources location="/images/" mapping="/images/**"/>
+	<mvc:resources location="/js/" mapping="/js/**"/>
+	<mvc:resources location="/template/" mapping="/template/**"/>
+	<mvc:resources location="/css/" mapping="/css/**"/>
+
+	
+
+	<!--controller and services scan -->
+	<context:component-scan base-package="com.bridgeit.todoApplication.controller" />
+	<context:component-scan base-package="com.bridgeit.todoApplication.validation" />
+	<context:component-scan base-package="com.bridgeit.todoApplication.service" />
+
+	<!--To specify the view components -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="resources/messages" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+	<!-- Pooled data source. -->
+	<bean id="pooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/ToDo_App" />
+		<property name="user" value="root" />
+		<property name="password" value="root" />
+		<property name="maxPoolSize" value="100" />
+		<property name="minPoolSize" value="3" />
+		<property name="maxStatements" value="4" />
+	</bean>
+
+<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+<property name="sessionFactory" ref="sessionFactory"/>
+</bean>
+	
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="pooledDataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>
+					com.bridgeit.todoApplication.model.User
+				</value>
+				<value>
+					com.bridgeit.todoApplication.model.ToDoItem
+				</value>
+				
+			</list>
+		</property>
+
+
+		<!--Hibernate properties -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect"> org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="userValidation" class="com.bridgeit.todoApplication.validation.UserValidation" />
+	<bean id="userDAO" class="com.bridgeit.todoApplication.DAO.DAOImpl.UserDAOImpl"></bean>
+	<bean id="toDoItemDAO" class="com.bridgeit.todoApplication.DAO.DAOImpl.ToDoItemDAOImpl"></bean>
+	<bean id="userservice" class="com.bridgeit.todoApplication.service.ServiceImpl.UserServiceImpl"></bean>
+	<bean id="toDoItemService" class="com.bridgeit.todoApplication.service.ServiceImpl.ToDoItemServieImpl"></bean>
+	
+<mvc:resources mapping="/static/**" location="/static/" />
+</beans>
