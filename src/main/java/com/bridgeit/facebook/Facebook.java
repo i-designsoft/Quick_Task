@@ -22,7 +22,7 @@ public class Facebook {
 	public String FB_URL = "https://www.facebook.com/v2.9/dialog/oauth?client_id=%s&redirect_uri=%s&state=%s&response_type=code&scope=public_profile,email";
 	
 	public String FB_ACCESS_TOKEN_URL = "https://graph.facebook.com/v2.9/oauth/access_token?client_id=%s&client_secret=%s&redirect_uri=%s&code=%s";
-	public String FB_GET_USER_URL= "https://graph.facebook.com/v2.9/me?access_token=%s&fields=id,name,email,picture.type(large";
+	public String FB_GET_USER_URL= "https://graph.facebook.com/v2.9/me?access_token=%s&fields=id,name,email,picture.type(large)";
 	
 	public String getFBUrl( String appUrl, String pState) 
 	
