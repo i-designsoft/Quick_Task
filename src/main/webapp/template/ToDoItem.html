@@ -201,7 +201,27 @@
 									</div>
 								</div>
 							</div>
+					<!-- 		<div class="col-lg-12" id="inputbox" ng-show="input" ng-hide="input1" ng-click="input1 = !input1">
+                        <div id="take">
+                            <h id="clk">Take a note... 
 
+                            </h>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12" id="inputbox1" ng-show="input1">
+
+                        <input type="text" id="taketitle" placeholder="Title" ng-model="taketitle" autofocus>
+
+                        <div contentEditable="true" contenteditable1 id="takecontent" ng-model="takecontent" placeholder="Take a note..."></div>
+
+                        <div id="takeupdate">
+
+                            <button id="done" ng-click="done()"><b>DONE</b></button>
+
+                        </div>
+                    </div>
+ -->
 							<p>
 							<div id="open-popup" style="width: 115%">
 								<div class="cont " ng-class="{list: isList, grid: !isList}">
@@ -209,7 +229,7 @@
 									<div class="cardRow slides " style="margin-left: 0px;">
 										<div class="card sortable grid "
 											ng-repeat="x in todos | orderBy:'-'| filter  :searchtext track by $index"
-											ng-class="{'col-xs-3':!isList, 'col-md-3':!isList, 'col-sm-3':!isList,'col-lg-3':!isList}">
+											ng-class="{'col-xs-3':!isList, 'col-md-3':!isList, 'col-sm-3':!isList,'col-lg-3':!isList}"style="text-align: left;">
 											
 											<div class="slideDown  showhim card-4 draggable-element">
 											
@@ -282,7 +302,7 @@
 															type="button" data-toggle="dropdown">
 															<i class="glyphicon glyphicon-tint btnedit" ></i>
 														</button>
-														<div id="test" style="width: auto;" class="dropdown-menu"
+												<div id="test" style="width: auto;" class="dropdown-menu"
 															role="menu" aria-labelledby="menu1">
 															<ul class="ul" style="padding-left: 20px">
 																<li>

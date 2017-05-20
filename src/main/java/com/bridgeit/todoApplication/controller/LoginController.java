@@ -159,4 +159,15 @@ public class LoginController  {
 		pResponse.sendRedirect(appUrl + "/#!/toDoItem");
 		return;
 	}
+	
+	@RequestMapping(value = "/isLogin", method = RequestMethod.GET, headers="Accept=*/*")
+	public @ResponseBody User showMenu(HttpSession session) {
+	    User user = (User) session.getAttribute("user");
+	    if(user!=null)
+	    {
+	    	
+	    }
+
+	    return user;
+	}
 }
