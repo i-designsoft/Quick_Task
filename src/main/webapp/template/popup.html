@@ -1,30 +1,114 @@
 <div class="modal fade" id="myModal" role="dialog"
-	ng-controller="toDoCtrl as tdctl" style="background-color: rgba(138, 137, 136, 0.3) !important">
-	<div class="modal-dialog">
-
-
-		<div class="modal-content" style="margin-top: 100px;text-align: -webkit-auto;">
-			<div class="modal-header">
-
-
-				<div id="title{{todo.id}}" contenteditable="true" style="word-wrap: break-word;">
-					<h4 class="modal-title">{{ todo.title }}</h4>
-				</div> 
-
-			</div>
-			<div id="description{{todo.id}}" contenteditable="true"
-				style="word-wrap: break-word;">
-				<div>{{ todo.toDoItemDescription }}</div>
-			</div>
-			<div>
-				<label>Reminder:</label>{{ todo.reminder | date }}
-			</div>
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal"
-				ng-click="tdctl.update(todo.id,indx,todo)">Update</button>
-			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		</div>
-	</div>
-
+   ng-controller="toDoCtrl as tdctl" style="background-color: rgba(138, 137, 136, 0.3) !important">
+   <div class="modal-dialog">
+      <div class="modal-content" style="margin-top: 180px;text-align: -webkit-auto;">
+         <div class="modal-header">
+            <div id="title{{todo.id}}" contenteditable="true" style="word-wrap: break-word;">
+               <h3 class="modal-title">{{ todo.title }}</h3>
+            </div>
+         </div>
+         <div class="descpop" id="description{{todo.id}}" contenteditable="true"
+            style="word-wrap: break-word;">
+            <div>{{ todo.toDoItemDescription }}</div>
+         </div>
+         <hr>
+         <div class="rem">
+            <label>Reminder:</label>{{ todo.reminder | date }}
+         </div>
+         <div class="updateDiv">
+            <span style="padding-top: 35px">
+            <span class="glyphicon glyphicon-time"></span>
+            <span style="margin-left: 5px; color: graytext;">Created On:</span>
+            <span style="color: graytext">{{ todo.toDoCreatedDate | date }}</span>
+            </span>	
+            <span>
+               <button data-toggle="dropdown" style="border: none;"
+                  class="dropdown-toggle btnedit"type="button" >
+               <img src="https://maxcdn.icons8.com/windows8/PNG/26/Hands/reminder-26.png" 
+                  style="background-color:rgba(255, 255, 255, 0) !important;width: 20px">
+               </button>
+               <div class="dropdown-menu"style="margin-left: 10px; min-width: 255px; top: 87%;
+                  padding: 5px; line-height: 2.5">
+                  <div>Reminder:</div>
+                  <hr>
+                  <div data-ng-click="tdctl.doReminder(todo.id,$index,'Today')">
+                     <span>Later today</span>
+                     <span style="float: right; padding-right: 10px">20:00</span>
+                  </div>
+                  <div data-ng-click="tdctl.doReminder(x.id,$index,'Tomorrow')">
+                     <span>Tomorrow</span>
+                     <span style="float: right; padding-right: 10px">08:00</span>
+                  </div>
+                  <div data-ng-click="tdctl.doReminder(x.id,$index,'Next-Week')">
+                     <span>Next Week</span>
+                     <span style="float: right; padding-right: 10px">08:00</span>
+                  </div>
+                  <div>
+                     <span>Home</span>
+                     <span style="float: right; padding-right: 10px"></span>
+                  </div>
+                  <div>
+                     <span class="glyphicon glyphicon-time"></span>
+                     <span style="margin-left: 15px">Select Date and Time</span>
+                  </div>
+               </div>
+            </span>
+            <span>
+               <button data-toggle="dropdown" id="d"
+                  style="border: none;"class=" dropdown-toggle btnedit" type="button" >
+               <i class="glyphicon glyphicon-option-vertical"></i>
+               </button>
+               <div class="dropdown-menu"style="margin-left: 50px; min-width: 150px; 
+                  top: 87%; padding: 5px; line-height: 2.5">
+                  <div data-ng-click="tdctl.deleteTask(todo.id)">
+                     <span>Delete note</span>
+                  </div>
+                  <div data-ng-click="">
+                     <span>Add label</span>
+                  </div>
+                  <div data-ng-click="copyItem(todo)">
+                     <span>Make a copy</span>
+                  </div>
+                  <div>
+                     <span>Copy to Google Docs</span>
+                  </div>
+               </div>
+            </span>
+            <span class="dropup">
+               <button
+                  data-ng-style="cardColor" class="dropdown-toggle btnedit"
+                  type="button" data-toggle="dropdown">
+               <img src="https://maxcdn.icons8.com/Android_L/PNG/24/Editing/paint_palette-24.png" 
+                  style="background-color: rgba(255, 255, 255, 0)!important" width="20" height="20">
+               </button>
+               <div id="test" style="width: auto;" class="dropdown-menu"
+                  role="menu" aria-labelledby="menu1">
+                  <ul class="ul" style="padding-left: 20px">
+                     <li>
+                        <div data-ng-click="changeCardColor('White',$event)"
+                           style="background-color: transparent;" class="test1"></div>
+                        <div data-ng-click="changeCardColor('#ff6666',$event)"
+                           style="background-color: #ff6666;" class="test1"></div>
+                        <div data-ng-click="changeCardColor('#ffa366',$event)"
+                           style="background-color: #ffa366;" class="test1"></div>
+                     </li>
+                     <hr>
+                     <li>
+                        <div data-ng-click="changeCardColor('#bfbfbf',$event)"
+                           style="background-color: #bfbfbf;" class="test1"></div>
+                        <div data-ng-click="changeCardColor('#99d6ff',$event)"
+                           style="background-color: #99d6ff;" class="test1"></div>
+                        <div data-ng-click="changeCardColor('#ccffb3',$event)"
+                           style="background-color: #ccffb3;" class="test1"></div>
+                     </li>
+                  </ul>
+               </div>
+            </span>
+            <span><button type="button" class="btn btn-default" data-dismiss="modal"style="padding:5px;border: 0px white;"
+               ng-click="tdctl.update(todo.id,index,todo)">Done</button></span>
+         </div>
+      </div>
+      <!-- <div class="modal-footer">
+         </div> -->
+   </div>
 </div>

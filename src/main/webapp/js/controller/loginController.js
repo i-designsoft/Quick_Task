@@ -49,7 +49,7 @@ myApp.controller("loginController",function ($scope,$http,  $state, loginService
 			var resp = data.data;
             if( resp.status == 1)
             {
-     
+            	
             	$state.go("toDoItem");
             }
 			else
@@ -70,14 +70,14 @@ myApp.controller("loginController",function ($scope,$http,  $state, loginService
 myApp.service("loginService",function ($http) {
 	this.login = function(user){ 
 		return $http({
-			url:"http://localhost:8090/toDoApp/login",
+			url:"/toDoApp/login",
 			method:"post",
 			data:user
 		});
 	}
 	this.isLogin=function(){
 		return $http({
-			url:"http://localhost:8090/toDoApp/isLogin",
+			url:"/toDoApp/isLogin",
 			method:"get",
 			
 		});
