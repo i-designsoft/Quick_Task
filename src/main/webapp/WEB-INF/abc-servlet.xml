@@ -83,5 +83,17 @@
 	<bean id="userservice" class="com.bridgeit.todoApplication.service.ServiceImpl.UserServiceImpl"></bean>
 	<bean id="toDoItemService" class="com.bridgeit.todoApplication.service.ServiceImpl.ToDoItemServieImpl"></bean>
 	
+	
+	
+	<!-- hEROKU dEPLOYMENT bEAN -->
+	<bean class="java.net.URI" id="dbUrl">
+		<constructor-arg value="${DATABASE_URL}"/>
+	</bean>	
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="url" value="#{'jdbc:postgresql://'+@dbUrl.getHost()+':'+@dbUrl.getPost()+@dbUrl.getPath()}"/>
+		<property name="username" value="#{@dbUrl.getUserInfo().split(':')[0]}"/>
+		<property name="username" value="#{@dbUrl.getUserInfo().split(':')[1]}"/>
+	</bean>
 <mvc:resources mapping="/static/**" location="/static/" />
 </beans>
