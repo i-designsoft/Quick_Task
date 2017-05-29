@@ -36,7 +36,7 @@
 	</bean>
 
 	<!-- Pooled data source. -->
-	<bean id="pooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+	<!-- <bean id="pooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/ToDo_App" />
@@ -46,7 +46,7 @@
 		<property name="minPoolSize" value="3" />
 		<property name="maxStatements" value="4" />
 	</bean>
-
+ -->
 <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 <property name="sessionFactory" ref="sessionFactory"/>
 </bean>
@@ -95,5 +95,7 @@
 		<property name="username" value="#{@dbUrl.getUserInfo().split(':')[0]}"/>
 		<property name="username" value="#{@dbUrl.getUserInfo().split(':')[1]}"/>
 	</bean>
+	
+	
 <mvc:resources mapping="/static/**" location="/static/" />
 </beans>

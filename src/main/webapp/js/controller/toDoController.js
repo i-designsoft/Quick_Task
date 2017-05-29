@@ -11,10 +11,6 @@ angular.module("todoApp").controller("toDoCtrl", function($scope, $state,$window
 
   console.log($scope.todos.length);
   
-  
-  
-  
-  
 
      $scope.shareViaFB = function(todo) {
         console.log("Inside Fb Share function");
@@ -65,12 +61,6 @@ angular.module("todoApp").controller("toDoCtrl", function($scope, $state,$window
             }
         });
         
-       /* FB.ui({
-          display: 'popup',
-          method: 'share',
-          
-          href: 'https://developers.facebook.com/docs/',
-        }, function(response){});*/
 };
 
     
