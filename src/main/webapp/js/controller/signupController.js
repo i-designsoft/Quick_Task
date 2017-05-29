@@ -33,7 +33,7 @@ myApp.controller('signupController', function($scope, $state, signUpService) {
 myApp.service('signUpService',function($http){
 	this.signup = function(user){ 
 		return $http({
-			url:"/create",
+			url:"/toDoApp/create",
 			method:"post",
 			data:user
 		});
