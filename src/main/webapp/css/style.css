@@ -13,9 +13,9 @@ hr {
 }
 .modal-content {
     margin-top: 180px;
-}
+ }
 .descpop {
-    line-height: 5;
+    line-height: 1;
     margin-left: 15px;
 }
 .rem {
@@ -94,7 +94,7 @@ hr {
     margin-bottom: 10px;
 }
 .cont.grid {
-    margin-right: -20px;
+    margin-right: 0px;
 }
 .cont.grid .card {
     display: inline-block;
@@ -473,12 +473,15 @@ input:focus {
     }
 }
 .editBar {
-    position: absolute;
+    
     margin-top: 5px;
-    margin-left: -13px;
+    margin-left: 0px;
 }
 .showme {
     display: none;
+}
+.showIconBar{
+	min-height: 35px;
 }
 .showhim:hover .showme {
     display: block;
@@ -1565,6 +1568,10 @@ hr.style6 {
     background-color: transparent;
     border: none;
 }
+
+
+
+
 @ import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
 .twitter {
     color: #00aced;
@@ -1665,6 +1672,7 @@ h2 {
     align-items: center;
     justify-content: center;
 }
+
 .icon svg {
     fill: currentColor;
 }

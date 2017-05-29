@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +37,9 @@ public class LoginController  {
 	@Autowired
     UserService userservice;
 	
+	
+	protected static Logger logger = Logger.getLogger("LoginController");
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public @ResponseBody Response getEmployeeById(@RequestBody Map<String, String> loginMap, HttpServletRequest request,
 			HttpServletResponse response) {
@@ -54,7 +58,7 @@ public class LoginController  {
 		}
 
 		if (user == null) {
-
+			logger.info("User Not found");
 			ErrorResponse er = new ErrorResponse();
 			er.setStatus(-1);
 			er.setMessage("Invalid credential, Please check email or password");
@@ -64,6 +68,7 @@ public class LoginController  {
 		LoginResponse lr = new LoginResponse();
 		
 		lr.setStatus(1);
+		logger.info("User Login Success..."+user);
 		lr.setMessage("User logged succesfully");
 		TokenResponse tr = new TokenResponse();
 		tr.getAccessToken();

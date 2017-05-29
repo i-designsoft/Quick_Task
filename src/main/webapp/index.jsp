@@ -5,7 +5,7 @@
 
     <script src="bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
     <script src="bower_components/jquery-ui/jquery-ui.min.js" charset="utf-8"></script>
-
+	
     <script src="bower_components/gridly/javascripts/jquery.gridly.js" charset="utf-8"></script>
 
     <script src="bower_components/packery/dist/packery.pkgd.min.js" charset="utf-8"></script>
@@ -29,6 +29,12 @@
 
     <link rel="stylesheet" href="css/style.css">
     <script src="js/app.js" charset="utf-8"></script>
+    
+    
+  <script src="https://connect.facebook.net/enUS/all.js"></script>
+ <!--  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script> -->
 
     <script src="js/controller/loginController.js" charset="utf-8"></script>
     <script src="js/controller/signupController.js" charset="utf-8"></script>

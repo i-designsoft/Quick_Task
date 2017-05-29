@@ -39,6 +39,7 @@ public class ToDoItemController {
     	HttpSession session=request.getSession();
     	User user=(User) session.getAttribute("user");
         List<ToDoItem> toDoList = toDoItemService.findAllToDoItemByUserId(user.getId());
+        
         if(toDoList.isEmpty()){
             return new ResponseEntity<List<ToDoItem>>(HttpStatus.NO_CONTENT);
         }

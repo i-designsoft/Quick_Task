@@ -1,45 +1,38 @@
 <div class="modal fade" id="myModal" role="dialog"
    ng-controller="toDoCtrl as tdctl" style="background-color: rgba(138, 137, 136, 0.3) !important">
    <div class="modal-dialog">
-      <div class="modal-content" style="margin-top: 180px;text-align: -webkit-auto;">
-         <div class="modal-header">
+   
+      <div class="modal-content" style="margin-top: 180px;text-align: -webkit-auto;background-color:{{todo.color}};">
+         <div class="modal-header" style="border: none;">
             <div id="title{{todo.id}}" contenteditable="true" style="word-wrap: break-word;">
                <h3 class="modal-title">{{ todo.title }}</h3>
+               
             </div>
          </div>
          <div class="descpop" id="description{{todo.id}}" contenteditable="true"
             style="word-wrap: break-word;">
             <div>{{ todo.toDoItemDescription }}</div>
          </div>
-         <hr>
-         <div class="rem">
-            <label>Reminder:</label>{{ todo.reminder | date }}
-         </div>
-         <div class="updateDiv">
-            <span style="padding-top: 35px">
-            <span class="glyphicon glyphicon-time"></span>
-            <span style="margin-left: 5px; color: graytext;">Created On:</span>
-            <span style="color: graytext">{{ todo.toDoCreatedDate | date }}</span>
-            </span>	
-            <span>
+   
+         <span>
                <button data-toggle="dropdown" style="border: none;"
                   class="dropdown-toggle btnedit"type="button" >
                <img src="https://maxcdn.icons8.com/windows8/PNG/26/Hands/reminder-26.png" 
                   style="background-color:rgba(255, 255, 255, 0) !important;width: 20px">
                </button>
-               <div class="dropdown-menu"style="margin-left: 10px; min-width: 255px; top: 87%;
+               <div class="dropdown-menu"style="margin-left: 10px; min-width: 255px; top: 95%;
                   padding: 5px; line-height: 2.5">
                   <div>Reminder:</div>
-                  <hr>
-                  <div data-ng-click="tdctl.doReminder(todo.id,$index,'Today')">
+               
+                  <div data-ng-click="doReminder(todo.id,$index,'Today')">
                      <span>Later today</span>
                      <span style="float: right; padding-right: 10px">20:00</span>
                   </div>
-                  <div data-ng-click="tdctl.doReminder(x.id,$index,'Tomorrow')">
+                  <div data-ng-click="doReminder(todo.id,$index,'Tomorrow')">
                      <span>Tomorrow</span>
                      <span style="float: right; padding-right: 10px">08:00</span>
                   </div>
-                  <div data-ng-click="tdctl.doReminder(x.id,$index,'Next-Week')">
+                  <div data-ng-click="doReminder(todo.id,$index,'Next-Week')">
                      <span>Next Week</span>
                      <span style="float: right; padding-right: 10px">08:00</span>
                   </div>
@@ -59,7 +52,7 @@
                <i class="glyphicon glyphicon-option-vertical"></i>
                </button>
                <div class="dropdown-menu"style="margin-left: 50px; min-width: 150px; 
-                  top: 87%; padding: 5px; line-height: 2.5">
+                  top: 95%; padding: 5px; line-height: 2.5">
                   <div data-ng-click="tdctl.deleteTask(todo.id)">
                      <span>Delete note</span>
                   </div>
@@ -92,7 +85,7 @@
                         <div data-ng-click="changeCardColor('#ffa366',$event)"
                            style="background-color: #ffa366;" class="test1"></div>
                      </li>
-                     <hr>
+              
                      <li>
                         <div data-ng-click="changeCardColor('#bfbfbf',$event)"
                            style="background-color: #bfbfbf;" class="test1"></div>
@@ -104,7 +97,17 @@
                   </ul>
                </div>
             </span>
-            <span><button type="button" class="btn btn-default" data-dismiss="modal"style="padding:5px;border: 0px white;"
+         <div class="rem">
+            <label>Reminder:</label>{{ todo.reminder | date }}
+         </div>
+         <div class="updateDiv">
+            <span style="padding-top: 35px">
+            <span class="glyphicon glyphicon-time"></span>
+            <span style="margin-left: 5px; color: graytext;">Created On:</span>
+            <span style="color: graytext">{{ todo.toDoCreatedDate | date }}</span>
+            </span>	
+            
+            <span><button type="button" class="btn btn-default" data-dismiss="modal"style="background-color: rgba(255, 255, 255, 0);;padding:5px;border: 0px white;"
                ng-click="tdctl.update(todo.id,index,todo)">Done</button></span>
          </div>
       </div>

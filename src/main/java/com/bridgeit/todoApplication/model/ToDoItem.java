@@ -32,6 +32,8 @@ public class ToDoItem implements Serializable {
 	private Date toDoCreatedDate;
 	@Column
 	private Date reminder;
+	@Column
+	private String color;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "USER_ID")
@@ -41,13 +43,14 @@ public class ToDoItem implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ToDoItem(long id, String title, String toDoItemDescription, Date toDoCreatedDate,Date reminder) {
+	public ToDoItem(long id, String title, String toDoItemDescription, Date toDoCreatedDate,Date reminder,String color) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.toDoItemDescription = toDoItemDescription;
 		this.toDoCreatedDate = toDoCreatedDate;
 		this.reminder=reminder;
+		this.color=color;
 
 	}
 
@@ -97,6 +100,14 @@ public class ToDoItem implements Serializable {
 
 	public void setReminder(Date reminder) {
 		this.reminder = reminder;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 }

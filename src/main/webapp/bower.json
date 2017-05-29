@@ -22,6 +22,7 @@
     "gridly": "^1.2.9",
     "jquery-ui": "^1.12.1",
     "AngularJS-Toaster": "angularjs-toaster#^2.1.0",
-    "packery": "^2.1.1"
+    "packery": "^2.1.1",
+    "angular-bootstrap-datetimepicker-directive": "^0.1.3"
   }
 }

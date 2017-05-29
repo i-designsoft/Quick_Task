@@ -1,4 +1,4 @@
-angular.module("todoApp").controller("toDoCtrl", function($scope, $state, $window, toDoService, ModalService, $filter, $http) {
+angular.module("todoApp").controller("toDoCtrl", function($scope, $state,$window, toDoService, ModalService, $filter, $http) {
 
     $scope.user = {};
     $scope.todos = [];
@@ -6,9 +6,113 @@ angular.module("todoApp").controller("toDoCtrl", function($scope, $state, $windo
     $scope.isList = true;
     $scope.active = true;
     $scope.active1 = true;
+    $scope.notifications=[];
+  
 
+  console.log($scope.todos.length);
+  
+  
+  
+  
+  
 
+     $scope.shareViaFB = function(todo) {
+        console.log("Inside Fb Share function");
+        FB.init({
+            appId      : '455615694791739',
+            status     : true,
+            xfbml      : true
+        });
+        
+      /*  
+        var fbShare = function() {
+            FB.ui({
+                method: "feed",
+                display: "iframe",
+                link: "http://example.com/",
+                caption: "Example.com",
+                description: "Here is the text I want to share.",
+                picture: "http://example.com/image.png"
+            });
+        };
+        $("#fb-publish").click(function() {
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    fbShare();
+               }
+            }, {scope: 'publish_stream'});
+        });*/
+        
+        FB.ui({
+            method: 'share_open_graph',
+            action_type: 'og.shares',
+            action_properties: JSON.stringify({
+                object : {
+                   // your url to share
+                   'og:title': todo.title,
+                   'og:description': todo.toDoItemDescription,
+                   /*'og:image': 'http://example.com/link/to/your/image.jpg'*/
+                }
+            })
+            },
+            // callback
+            function(response) {
+            if (response && !response.error_message) {
+                // then get post content
+                alert('successfully posted. Status id : '+response.post_id);
+            } else {
+                alert('Something went error.');
+            }
+        });
+        
+       /* FB.ui({
+          display: 'popup',
+          method: 'share',
+          
+          href: 'https://developers.facebook.com/docs/',
+        }, function(response){});*/
+};
 
+    
+ $scope.notifications=function(id){
+	 var todayDate =Math.round(new Date());
+	
+	 var obj;
+	 var futureDate;
+	 console.log(todayDate);
+	 
+	 	for (i = 0; i < $scope.todos.length; i++)
+    	{
+        	if($scope.todos[i].id==id)
+        	{
+        		obj=$scope.todos[i];
+        	}
+    	}
+	 	futureDate=obj.reminder;
+	 	console.log(futureDate==todayDate);
+	 	
+	 	console.log(futureDate);
+	//selected dueDate is in the future
+	
+	if (futureDate == todayDate) {
+	   alert('Task Due date is due today!');
+	}
+ };
+  
+  
+  
+  
+  
+  
+    $scope.hoverIn=function()
+    {
+    	this.display=true;
+    };
+    $scope.hoverOut=function(){
+    	this.display=false;
+    };
+    
+    
     $(this).parent().find('ul').mouseleave(function() {
         var thisUI = $(this);
         $('html').click(function() {
@@ -17,10 +121,13 @@ angular.module("todoApp").controller("toDoCtrl", function($scope, $state, $windo
         });
     });
 
+    
 
+this.shareViaFb=function(){
+	console.log("Todo Item Successfully Shared on Your FB Wall")
+};
 
-
-    var $grid = $('.grid1').packery({
+   /* var $grid = $('.grid1').packery({
         itemSelector: '.grid1-item',
         columnWidth: 100
     });
@@ -31,7 +138,7 @@ angular.module("todoApp").controller("toDoCtrl", function($scope, $state, $windo
         // bind drag events to Packery
         $grid.packery('bindDraggabillyEvents', draggie);
     });
-
+*/
 
 
     // Make a Copy of Existing ToDo Item
@@ -41,6 +148,8 @@ angular.module("todoApp").controller("toDoCtrl", function($scope, $state, $windo
             title: todo.title,
             reminder: todo.reminder,
             toDoItemDescription: todo.toDoItemDescription,
+            color:todo.color,
+            
 
         };
         console.log(toDoItem);
@@ -52,14 +161,64 @@ angular.module("todoApp").controller("toDoCtrl", function($scope, $state, $windo
 
 
     // Change Color of ToDo Item Card
-    $scope.changeCardColor = function(color, e) {
-        console.log(color);
-        console.log(e);
+    $scope.changeCardColor = function(color, e,index,id) {
+        
+      
+        var obj;
+        
+        for (i = 0; i < $scope.todos.length; i++)
+        	{
+            	if($scope.todos[i].id==id)
+            	{
+            		obj=$scope.todos[i];
+            	}
+        	}
+       console.log(obj);
+       obj.color=color;
+       
+       
+       
+       toDoService.updateToDoItem(id,obj);
+        /*console.log($scope.todos[index].reminder);
+        console.log(day);
+        console.log(index);*/
+        /*toDoService.updateToDoItem(id,obj);*/
+   /*     toDoService.updateToDoItem(id,obj);*/
+        console.log("color changed");
         $(e.target).closest(".card").css("background-color", color);
-    }
+    };
 
-
-
+this.deleteReminder=function(id,index){
+	var obj;
+	
+    for (i = 0; i < $scope.todos.length; i++)
+    	{
+        	if($scope.todos[i].id==id)
+        	{
+        		obj=$scope.todos[i];
+        	}
+    	}
+    obj.reminder = null;
+    console.log(obj.id);
+    toDoService.updateToDoItem(id,obj);
+    console.log("reminder Deletted");
+};
+    
+$scope.setNotification=function(id){
+	 var obj;
+	 var today = new Date();
+	 for (i = 0; i < $scope.todos.length; i++)
+    	{
+        	if($scope.todos[i].id==id)
+        	{
+        		obj=$scope.todos[i];
+        	}
+    	}
+   if(obj.reminder==new Date())
+	   {
+	   console.log("reminder set");
+	   }
+}
     // Set Reminder of a ToDoItem
     this.doReminder = function(id, index, day) {
         console.log(id, index);
@@ -121,7 +280,7 @@ angular.module("todoApp").controller("toDoCtrl", function($scope, $state, $windo
 
     // Set List or grid view in cookie to open same view when reopen browser
     // read from cookie
-    $scope.isList = false;
+   /* $scope.isList = false;
     var cView = readCookie('view');
     // console.log('view',cView)
     if ('true' == cView) {
@@ -137,7 +296,7 @@ angular.module("todoApp").controller("toDoCtrl", function($scope, $state, $windo
         // isList = !isList;
         // console.log('change view', $scope.isList);
         writeCookie('view', $scope.isList);
-    }
+    }*/
 
     function writeCookie(cname, cvalue) {
         var d = new Date();
@@ -164,7 +323,7 @@ angular.module("todoApp").controller("toDoCtrl", function($scope, $state, $windo
             .css({
                 opacity: 0
             })
-            .text('5') // ADD DYNAMIC VALUE (YOU CAN
+            .text($scope.todos.length) // ADD DYNAMIC VALUE (YOU CAN
             // EXTRACT DATA FROM DATABASE OR
             // XML).
             .css({
@@ -313,7 +472,8 @@ angular.module("todoApp").controller("toDoCtrl", function($scope, $state, $windo
             var toDoItem = {
                 title: $scope.title,
                 reminder: $scope.reminder,
-                toDoItemDescription: $scope.toDoItemDescription
+                toDoItemDescription: $scope.toDoItemDescription,
+                color: (255, 255, 255),
 
             };
             /*
@@ -341,25 +501,33 @@ angular.module("todoApp").controller("toDoCtrl", function($scope, $state, $windo
 
     };
 
+    
+    
 
 
     this.update = function(id, index, obbj) {
 
         console.log(id);
         console.log(obbj);
+        /*var title="Road Trip Bike Riding";*/
         var title = $($('#title' + id).html()).html();
         var toDoItemDescription = $($('#description' + id).html()).html();
+       
+        $scope.changeCardColor();
+        
+        
         /*	var obj=$scope.todos[index];*/
         /*obj.id=id;
         obj.title=title;
         obj.toDoItemDescription=toDoItemDescription;*/
+       this.doReminder();
 
-
-        console.log(toDoItemDescription);
+        console.log(color);
 
         var httpobj = toDoService.updateToDoItem(id, {
             title: title,
-            toDoItemDescription: toDoItemDescription
+            toDoItemDescription: toDoItemDescription,
+            color:color,
         }).then(function(data) {
 
             if (data.status == 200) {
@@ -372,11 +540,13 @@ angular.module("todoApp").controller("toDoCtrl", function($scope, $state, $windo
 
     toDoService.listAllToDo().then(function(data) {
         if (data.status === 200) {
+        	console.log(data.data);
             $scope.todos = data.data;
-
+          
 
         } else {
-            console.log("else..")
+            console.log("else..");
+            
         }
     }).catch(function(err) {
         console.log(err);
@@ -388,10 +558,10 @@ angular.module("todoApp").controller("toDoCtrl", function($scope, $state, $windo
     toDoService.getUser().then(function(data) {
         if (data.status === 200) {
             $scope.user = data.data;
-
-
+            console.log("User Found.");            
         } else {
-            console.log("else..")
+            console.log("Session Timeout or User Not Found..");
+            $state.go("login");
         }
 
     }).catch(function(err) {
