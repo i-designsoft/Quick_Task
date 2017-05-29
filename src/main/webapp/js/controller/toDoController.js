@@ -564,7 +564,7 @@ $scope.setNotification=function(id){
 }).service('toDoService', function($http) {
     this.addingToDo = function(toDoItem) {
         return $http({
-            url: "/toDoApp/toDoItem",
+            url: "/toDoItem",
             method: "post",
             data: toDoItem
         });
@@ -572,32 +572,32 @@ $scope.setNotification=function(id){
 
     this.listAllToDo = function() {
         return $http({
-            url: "/toDoApp/toDoList",
+            url: "/toDoList",
             method: "get"
         });
     }
     this.getUser = function() {
         return $http({
-            url: "/toDoApp/getUser",
+            url: "/getUser",
             method: "get"
         });
     }
 
     this.deleteTodo = function(id) {
         return $http({
-            url: "/toDoApp/toDoItem/" + id,
+            url: "/toDoItem/" + id,
             method: "delete"
         });
     }
     this.logoutUser = function() {
         return $http({
-            url: "/toDoApp/logout",
+            url: "/logout",
             method: "get"
         });
     }
     this.updateToDoItem = function(id, todo) {
         return $http({
-            url: "/toDoApp/updateToDoItem/" + id,
+            url: "/updateToDoItem/" + id,
             method: "post",
             data: todo
         });
