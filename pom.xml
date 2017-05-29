@@ -248,17 +248,17 @@
 </dependency>
 
 <!--connect to postgresql to deploy on heroku -->
-<dependency>
+<!-- <dependency>
     <groupId>org.postgresql</groupId>
     <artifactId>postgresql</artifactId>
     <version>9.4.1208</version>
 </dependency>
-<!--  connect to postgresql database -->
+ connect to postgresql database
 <dependency>
-    <groupId>postgresql</groupId>
+    <groupId>postgresqzl</groupId>
     <artifactId>postgresql</artifactId>
     <version>9.1-901-1.jdbc4</version>
-</dependency>
+</dependency> -->
 
   
   </dependencies>

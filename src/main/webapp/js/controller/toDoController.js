@@ -65,7 +65,7 @@ angular.module("todoApp").controller("toDoCtrl", function($scope, $state,$window
 
     
  $scope.notifications=function(id){
-	 var todayDate =Math.round(new Date());
+	 var todayDate =new Date().getTime();
 	
 	 var obj;
 	 var futureDate;
@@ -77,11 +77,14 @@ angular.module("todoApp").controller("toDoCtrl", function($scope, $state,$window
         	{
         		obj=$scope.todos[i];
         	}
+        	
     	}
 	 	futureDate=obj.reminder;
+	 	console.log(futureDate);
+	 	
 	 	console.log(futureDate==todayDate);
 	 	
-	 	console.log(futureDate);
+	 	
 	//selected dueDate is in the future
 	
 	if (futureDate == todayDate) {
@@ -561,7 +564,7 @@ $scope.setNotification=function(id){
 }).service('toDoService', function($http) {
     this.addingToDo = function(toDoItem) {
         return $http({
-            url: "/toDoItem",
+            url: "/toDoApp/toDoItem",
             method: "post",
             data: toDoItem
         });
@@ -569,32 +572,32 @@ $scope.setNotification=function(id){
 
     this.listAllToDo = function() {
         return $http({
-            url: "/toDoList",
+            url: "/toDoApp/toDoList",
             method: "get"
         });
     }
     this.getUser = function() {
         return $http({
-            url: "/getUser",
+            url: "/toDoApp/getUser",
             method: "get"
         });
     }
 
     this.deleteTodo = function(id) {
         return $http({
-            url: "/toDoItem/" + id,
+            url: "/toDoApp/toDoItem/" + id,
             method: "delete"
         });
     }
     this.logoutUser = function() {
         return $http({
-            url: "/logout",
+            url: "/toDoApp/logout",
             method: "get"
         });
     }
     this.updateToDoItem = function(id, todo) {
         return $http({
-            url: "/updateToDoItem/" + id,
+            url: "/toDoApp/updateToDoItem/" + id,
             method: "post",
             data: todo
         });

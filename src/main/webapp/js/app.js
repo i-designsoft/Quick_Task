@@ -1,4 +1,4 @@
-var myApp = angular.module('todoApp', ['ui.router','angularModalService'])
+var myApp = angular.module('todoApp', ['ui.router','angularModalService', 'ngSanitize','ui.bootstrap','ngAnimate','ui.bootstrap.datetimepicker'])
 .config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state("home",{

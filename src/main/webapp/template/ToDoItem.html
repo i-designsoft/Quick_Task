@@ -150,10 +150,22 @@
                               <div>
                                  <input type="text" ng-model="toDoItemDescription" placeholder="Take a note..." style="width: 600px; padding-bottom: 15px" ng-enter />
                               </div>
-                              <div class="remind">
+                              <!-- <div class="remind">
                                  <label>Remind Me:</label>
-                                 <input type="date" datetime="yyyy-MM-dd" ng-model="reminder" placeholder="reminder" style="padding-bottom: 15px" ng-enter />
-                              </div>
+                                 <input type="date"  ng-model="reminder" placeholder="reminder" style="padding-bottom: 15px" ng-enter />
+                              </div> -->
+                              <div class="dropdown" style="width: 50%;display: inline-block;">
+  <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="" href="">
+    <div class="input-group">
+    <input type="text" class="form-control" data-ng-model="reminder" placeholder="reminde me">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar">
+    </i></span>
+    </div>
+  </a>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+    <datetimepicker data-ng-model="reminder" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+  </ul>
+</div>
                               <div class="done">
                                  <button id="todoSubmit" class="btn btn-default" style="border-color: white" ng-click="addToDo()">Done</button>
                               </div>
@@ -293,6 +305,16 @@
                                        style="background-color: rgba(255, 255, 255, 0)!important" title="Share with facebok" width="20" height="20">
                                     </button>
                                     </span>
+                                    
+                                    <span>
+                                    <button
+                                       data-ng-style="cardColor" class="dropdown-toggle btnedit"
+                                       type="button" data-toggle="dropdown"  data-ng-show="display" 
+                                       data-ng-click="notifications(x.id)">
+                                    <img src="https://maxcdn.icons8.com/Android/PNG/24/Social_Networks/facebook-24.png" 
+                                       style="background-color: rgba(255, 255, 255, 0)!important" title="Share with facebok" width="20" height="20">
+                                    </button>
+                                    </span>
                                  </div>
                                  <div data-ng-if="x.reminder" style="border-top: 1px dotted #000">
                                     <span class="glyphicon glyphicon-time" data-ng-if="x.reminder"></span>
@@ -300,7 +322,6 @@
                                     <span style="color: graytext" data-ng-if="x.reminder">{{ x.reminder | date }}</span>
                                     <span class="glyphicon glyphicon-remove-circle" style="float: right;" data-ng-click="tdctl.deleteReminder(x.id,$index)" data-ng-if="x.reminder"></span>
                                  </div>
-                                <a href="https://www.facebook.com/dialog/share?app_id=145634995501895&display=popup&href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2F&redirect_uri=https%3A%2F%2Fdevelopers.facebook.com%2Ftools%2Fexplorer"></a>
                               </div>
                            </div>
                            <!-- showhim showme openPopup(x) --> 

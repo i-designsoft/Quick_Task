@@ -70,14 +70,14 @@ myApp.controller("loginController",function ($scope,$http,  $state, loginService
 myApp.service("loginService",function ($http) {
 	this.login = function(user){ 
 		return $http({
-			url:"/login",
+			url:"/toDoApp/login",
 			method:"post",
 			data:user
 		});
 	}
 	this.isLogin=function(){
 		return $http({
-			url:"/isLogin",
+			url:"/toDoApp/isLogin",
 			method:"get",
 			
 		});
