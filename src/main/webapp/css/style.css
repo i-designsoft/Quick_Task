@@ -43,7 +43,7 @@ hr {
 }
 .cont.list .card {
     width: 100%;
-    display: table-row;
+    /* display: table-row; */
     background: #fff;
     position: relative;
 }
@@ -1584,7 +1584,7 @@ hr.style6 {
 }
 body {
     margin: 0;
-    height: 100vh;
+    height: 100vh;.l
 }
 body,
 input,
