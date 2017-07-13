@@ -3,15 +3,12 @@ package com.bridgeit.todoApplication.DAO.DAOImpl;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bridgeit.todoApplication.DAO.UserDAO;
@@ -31,11 +28,13 @@ public class UserDAOImpl implements UserDAO{
 	Session session = null;
 
 
+	@Override
 	public void addEntity(User user) throws Exception {
 		session = sessionFactory.getCurrentSession();
 		session.saveOrUpdate(user);
 	}
 
+	@Override
 	public User getEntityById(int id) throws Exception {
 
 		session = sessionFactory.getCurrentSession();
@@ -45,6 +44,7 @@ public class UserDAOImpl implements UserDAO{
 		return user;
 	}
 
+	@Override
 	public User getEntityByEmailId(String email) {
 
 		session = sessionFactory.getCurrentSession();
@@ -54,6 +54,7 @@ public class UserDAOImpl implements UserDAO{
 		return user;
 	}
 
+	@Override
 	public List<User> getUserList() throws Exception {
 		session = sessionFactory.getCurrentSession();
 		Criteria ctr = session.createCriteria(User.class);
@@ -65,6 +66,7 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 
+	@Override
 	public void deleteEntity(int id) throws Exception {
 		session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("delete from User where id = :id");
@@ -74,6 +76,7 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	
+	@Override
 	public User authUser(String email, String password) {
 		session = sessionFactory.getCurrentSession();
 

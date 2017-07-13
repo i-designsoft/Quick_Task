@@ -30,7 +30,7 @@ public class Facebook {
 	{
 		appUrl = appUrl + FB_RERDIRECT_URI;
 		
-		return FB_URL.format(FB_URL, new String[]{ FB_CLIENT_ID, appUrl, pState });
+		return String.format(FB_URL, new String[]{ FB_CLIENT_ID, appUrl, pState });
 		
 	}
 
@@ -43,7 +43,7 @@ public class Facebook {
 	public String getAccessToken(String authCode, String appUrl) throws JsonParseException, JsonMappingException, IOException 
 	{
 		appUrl = appUrl + FB_RERDIRECT_URI;
-		String accTokenUrl = FB_URL.format(FB_ACCESS_TOKEN_URL, new String[]{ FB_CLIENT_ID, FB_SECRET_KEY, appUrl, authCode });
+		String accTokenUrl = String.format(FB_ACCESS_TOKEN_URL, new String[]{ FB_CLIENT_ID, FB_SECRET_KEY, appUrl, authCode });
 		  
 		ResteasyClient client = new ResteasyClientBuilder().build();
 		ResteasyWebTarget target = client.target( accTokenUrl );
@@ -76,7 +76,7 @@ public class Facebook {
 		System.out.println( sr );
 		ObjectMapper mapper = new ObjectMapper();
 		FBProfile profile = mapper.readValue(sr, FBProfile.class);
-		System.out.println(profile.getName());
+		System.out.println(profile);
 		
 		
 		//client.close();

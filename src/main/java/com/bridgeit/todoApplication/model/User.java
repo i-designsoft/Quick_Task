@@ -37,20 +37,21 @@ public class User implements Serializable {
 	private String email;
 	@Column
 	private String password;
-	
+	@Column
+	private String profileImage;
 	
 	
 	public User(){
-		id=0;
 	}
 
-	public User(long id, String fullName, String mobile, String email, String password) {
+	public User(long id, String fullName, String mobile, String email, String password,String profileImage) {
 		super();
 		this.id = id;
 		this.fullName = fullName;
 		this.mobile = mobile;
 		this.email = email;
 		this.password = password;
+		this.profileImage=profileImage;
 	}
 
 	public long getId() {
@@ -91,6 +92,14 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getProfileImage() {
+		return profileImage;
+	}
+
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
 	}
 
 	

@@ -1,12 +1,10 @@
 package com.bridgeit.todoApplication.controller;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,12 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgeit.facebook.Facebook;
+import com.bridgeit.gmail.Gmail;
 import com.bridgeit.todoApplication.JSON.ErrorResponse;
 import com.bridgeit.todoApplication.JSON.LoginResponse;
 import com.bridgeit.todoApplication.JSON.Response;
 import com.bridgeit.todoApplication.JSON.TokenResponse;
 import com.bridgeit.todoApplication.model.FBProfile;
-import com.bridgeit.todoApplication.model.ToDoItem;
+import com.bridgeit.todoApplication.model.GmailProfile;
 import com.bridgeit.todoApplication.model.User;
 import com.bridgeit.todoApplication.service.UserService;
 
@@ -133,15 +132,16 @@ public class LoginController  {
 		
 		Facebook fb = new Facebook();
 		FBProfile profile = fb.authUser(authCode, appUrl);
-		System.out.println(profile.getEmail());
 
 		User user = userservice.getEntityByEmailId( profile.getEmail()  );
 		if( user == null)
 		{
 			user = new User();
 			user.setEmail(profile.getEmail());
-		
-			user.setPassword("1234567asdfclkhgvhkgv");
+			user.setFullName(profile.getName());
+			user.setProfileImage(profile.getPicture().getData().getUrl());
+			
+			System.out.println(profile.getPicture().getData().getUrl());
 			userservice.addEntity(user);
 		}
 		
@@ -157,14 +157,80 @@ public class LoginController  {
 		lr.setStatus(1);
 		lr.setMessage("User logged succesfully");
 		
-		
-
-		
-		
 		pResponse.sendRedirect(appUrl + "/#!/toDoItem");
 		return;
 	}
 	
+	
+	
+	
+	@RequestMapping(value="/loginWithGoogle" )
+	public void loginWithGmail(HttpServletRequest pRequest, HttpServletResponse pResponse) throws IOException{
+
+		System.out.println("Inside login with goole");
+
+		Gmail gmail = new Gmail();
+		String lsr = pRequest.getRequestURL().toString();
+		String appUrl = lsr.substring(0, lsr.lastIndexOf("/"));
+		String unId=UUID.randomUUID().toString();
+		pRequest.getSession().setAttribute("STATE", unId);
+		String gmailUrl=gmail.getGmailUrl(appUrl,unId);
+		pResponse.sendRedirect(gmailUrl);
+
+		return;
+		}
+		@RequestMapping(value="/postgmailLogin")
+		public void postGmailLogin(HttpServletRequest pRequest, HttpServletResponse pResponse) throws Exception {
+
+		System.out.println("Inside redirect url from google");
+
+		String sessionState = (String) pRequest.getSession().getAttribute("STATE");
+		String stateFromGmail=pRequest.getParameter("state");
+		if(sessionState==null || !sessionState.equals(stateFromGmail)){
+
+		pResponse.sendRedirect("loginWithGoogle");
+		return;
+		}
+
+		String error = pRequest.getParameter("error");
+
+		if(error !=null && error.trim().isEmpty()){
+
+		pResponse.sendRedirect("login");
+		return;
+		}
+
+		String authCode = pRequest.getParameter("code");
+
+		String lsr = pRequest.getRequestURL().toString();
+		String appUrl = lsr.substring(0, lsr.lastIndexOf("/") );
+
+		Gmail gmail = new Gmail();
+		GmailProfile profile = gmail.authUser(authCode, appUrl);
+
+
+		User user = userservice.getEntityByEmailId( profile.getEmails().get(0).getValue() );
+		if(user==null){
+
+		user = new User();
+		user.setFullName(profile.getDisplayName());
+		user.setProfileImage(profile.getImage().getUrl());
+		user.setEmail(profile.getEmails().get(0).getValue());
+
+		userservice.addEntity(user);
+		}
+		String accessToken = UUID.randomUUID().toString().replaceAll("-", "");
+		String refreshToken = UUID.randomUUID().toString().replaceAll("-", "");
+
+		HttpSession session = pRequest.getSession();
+		
+		/*Token token = new Token();
+		token.setCreatedOn(new Date());
+		token.setAccessToken(accessToken);
+		token.setRefreshToken(refreshToken);
+		token.setId(user.getId());
+	*/
+		}
 	@RequestMapping(value = "/isLogin", method = RequestMethod.GET, headers="Accept=*/*")
 	public @ResponseBody User showMenu(HttpSession session) {
 	    User user = (User) session.getAttribute("user");

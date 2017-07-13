@@ -24,7 +24,12 @@ var myApp = angular.module('todoApp', ['ui.router','angularModalService', 'ngSan
     url:"/create",
     templateUrl:"template/signUp.html",
     controller:"signupController"
-  });
+  })
+  .state("archiveItem",{
+	    url:"/archive",
+	    templateUrl:"template/archiveTask.html",
+	   
+	  });
   $urlRouterProvider.otherwise('/login');
 
 });

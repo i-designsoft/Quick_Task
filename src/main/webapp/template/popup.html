@@ -4,14 +4,14 @@
    
       <div class="modal-content" style="margin-top: 180px;text-align: -webkit-auto;background-color:{{todo.color}};">
          <div class="modal-header" style="border: none;">
-            <div id="title{{todo.id}}" contenteditable="true" style="word-wrap: break-word;">
-               <h3 class="modal-title">{{ todo.title }}</h3>
-               
+            <div id="title{{todo.id}}" contenteditable="true" >
+              
+               <h3 ng-bind-html="todo.title"></h3>
             </div>
          </div>
          <div class="descpop" id="description{{todo.id}}" contenteditable="true"
-            style="word-wrap: break-word;">
-            <div>{{ todo.toDoItemDescription }}</div>
+           >
+            <div ng-bind-html="todo.toDoItemDescription " ></div>
          </div>
    
          <span>
@@ -24,15 +24,15 @@
                   padding: 5px; line-height: 2.5">
                   <div>Reminder:</div>
                
-                  <div data-ng-click="doReminder(todo.id,$index,'Today')">
+                  <div data-ng-click="tdctl.doReminder(todo.id,$index,'Today')">
                      <span>Later today</span>
                      <span style="float: right; padding-right: 10px">20:00</span>
                   </div>
-                  <div data-ng-click="doReminder(todo.id,$index,'Tomorrow')">
+                  <div data-ng-click="tdctl.doReminder(todo.id,$index,'Tomorrow')">
                      <span>Tomorrow</span>
                      <span style="float: right; padding-right: 10px">08:00</span>
                   </div>
-                  <div data-ng-click="doReminder(todo.id,$index,'Next-Week')">
+                  <div data-ng-click="tdctl.doReminder(todo.id,$index,'Next-Week')">
                      <span>Next Week</span>
                      <span style="float: right; padding-right: 10px">08:00</span>
                   </div>
@@ -78,20 +78,20 @@
                   role="menu" aria-labelledby="menu1">
                   <ul class="ul" style="padding-left: 20px">
                      <li>
-                        <div data-ng-click="changeCardColor('White',$event)"
+                        <div data-ng-click="changePopUpCardColor('White',$event,todo.id)"
                            style="background-color: transparent;" class="test1"></div>
-                        <div data-ng-click="changeCardColor('#ff6666',$event)"
+                        <div data-ng-click="changePopUpCardColor('#ff6666',$event,todo.id)"
                            style="background-color: #ff6666;" class="test1"></div>
-                        <div data-ng-click="changeCardColor('#ffa366',$event)"
+                        <div data-ng-click="changePopUpCardColor('#ffa366',$event,todo.id)"
                            style="background-color: #ffa366;" class="test1"></div>
                      </li>
               
                      <li>
-                        <div data-ng-click="changeCardColor('#bfbfbf',$event)"
+                        <div data-ng-click="changePopUpCardColor('#bfbfbf',$event,todo.id)"
                            style="background-color: #bfbfbf;" class="test1"></div>
-                        <div data-ng-click="changeCardColor('#99d6ff',$event)"
+                        <div data-ng-click="changePopUpCardColor('#99d6ff',$event,todo.id)"
                            style="background-color: #99d6ff;" class="test1"></div>
-                        <div data-ng-click="changeCardColor('#ccffb3',$event)"
+                        <div data-ng-click="changePopUpCardColor('#ccffb3',$event,todo.id)"
                            style="background-color: #ccffb3;" class="test1"></div>
                      </li>
                   </ul>

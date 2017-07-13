@@ -1,0 +1,256 @@
+<div ng-controller="toDoCtrl as tdctl">
+  <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: #092b2b;" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span> 
+          <span class="icon-bar"></span> 
+          <span class="icon-bar"></span> 
+          <span class="icon-bar"></span>
+        </button>
+          <a class="navbar-brand" href="#menu-toggle" id="menu-toggle" style="display: inline-block; margin-top: 5px">
+            <span class="glyphicon glyphicon-list tglid" id="tglid"aria-hidden="true"></span>
+          </a>
+      </div>
+      <div>
+        <a class="navbar-brand" href="#menu-toggle" id="menu-toggle"> 
+          <span>
+			<span class="keepClass"style="color: white">
+				<h1 style="margin-top: -5px">Archive</h1>
+		  	</span>
+          </span>
+        </a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li id="noti_Container">
+            <div id="noti_Counter"></div>
+            <div id="noti_Button" class="glyphicon glyphicon-bell"></div>
+            <div id="notifications">
+              <div class="head3">Notifications</div>
+                <div ng-repeat="x in todos">
+                  <div>{{x.title}}</div>
+                </div>
+                <div class="seeAll">
+                  <a href="">See All</a>
+                </div>
+              </div>
+          </li>
+          <li style="margin-top: 5px">
+            <a> 
+              <span class="glyphicon glyphicon-refresh" id="textColor" aria-hidden="true"> </span>
+            </a>
+          </li>
+          <li style="margin-top: 10px">
+            <button type="button" class="btn btn-danger glyphicon" ng-click="isList = !isList" ng-class="{'glyphicon-list': !isList, 'glyphicon-th-large': isList}">
+            </button>
+          </li>
+          <li>
+            <a href="" class="dropdown-toggle" data-toggle="dropdown">
+              <img id="menu" class="circular--square1" src="{{user.profileImage}}" alt={{user.fullName.charAt(0)}}>
+            </a>
+            <div class="dropdown-menu profileBox">
+              <img class="circular--square2" src="" alt={{user.fullName.charAt(0)}} width="42" height="42">
+                <div class="profile2">
+                  <span class="profileNameBox">{{user.fullName}} </span> 
+                  <span class="profileEmailBox">{{user.email}}</span>
+                  <div class="profile3">
+                    <button class="btn btn-primary btn-sm accBtn" type="button" value="My Account" data-ng-click="hc.signout()">My Account
+                    </button>
+                  </div>
+                </div>
+                <hr>
+                <div style="background: #E8E8E8;">
+                  <div>
+                    <button class="btn btn-default btn-sm profileLogout" type="button" value="signout" data-ng-click="tdctl.logout()">Sign out
+                    </button>
+                  </div>
+                  <div>
+                    <button class="btn btn-default btn-sm profileAddAcc" type="button" value="Add Account" data-ng-click="tdctl.logout()">Add account</button>
+                  </div>
+                </div>
+              </div>
+          </li>
+        </ul>
+          <form class="navbar-form navbar-right" act-5pxion="" method="GET" style="margin-left: 15px">
+            <div class="input-group" style="margin-top: 5px">
+              <input type="search" class="form-control" placeholder="Search..." id="query" name="search" value="" ng-model="searchtext">
+                <div class="input-group-btn">
+                  <button type="submit" class="btn btn-success">
+                    <span class="glyphicon glyphicon-search"></span>
+                  </button>
+                </div>
+            </div>
+          </form>
+      </div>
+    </div>
+  </nav>
+  <div id="wrapper" class="toggled">
+    <div class="container-fluid">
+      <div id="sidebar-wrapper" style="margin-top: -40px">
+        <ul class="sidebar-nav">
+          <li>
+            <img class="circular--square" src="images/uma1.jpg" style="margin-top: 15px" />
+          </li>
+          <li class="sidebar-brand">
+            <a href="" class="navbar-brand">
+              <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+              <font color="#337AB7">{{user.fullName}}</font>
+            </a>
+          </li>
+          <li>
+            <button ng-click=""><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Note</button>
+          </li>
+          <li>
+            <a href=""><span class="glyphicon glyphicon-bell"
+							aria-hidden="true"></span> Reminder
+            </a>
+          </li>
+          <li>
+            <button ng-click="tdctl.archive()">
+              <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+              <font color="#337AB7"> Archive</font>
+            </button>
+          </li>
+          <li>
+            <a href=""><span class="glyphicon glyphicon-cog"
+							aria-hidden="true"></span> Setting
+            </a>
+          </li>
+          <li>
+            <a href="#"><span class="glyphicon glyphicon-stats"
+							aria-hidden="true"></span> Statistic
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="cont " ng-class="{list: isList, grid: !isList}">
+        <div class="cardRow slides " style="margin-left: 0px;">
+          <div class="card sortable grid" ng-repeat="x in archivedTask" 
+              ng-class="{'col-xs-3':!isList, 'col-md-3':!isList, 'col-sm-3':!isList,'col-lg-3':!isList}" 
+              style="text-align: left; background-color: {{x.color}}" data-ng-mouseover="hoverIn()" 
+              id="cardSlide" data-ng-mouseleave="hoverOut()" my-uid="{{x.id}}" ng-if="x.isPinned == 'true'">
+              <h1>vnkvnk</h1>
+              <div class="slideDown card-4 draggable-element">
+                <span style="float: right;">
+									<button class="glyphicon glyphicon-pushpin" data-ng-click="tdctl.unPinned(x.id,$index)" 
+													style="background: transparent;color: #4285f4">
+                  </button>		
+								</span>
+                <div ng-click="openPopup(x,$index) ">
+                  <h3 ng-bind-html="x.title"></h3>
+                    <div class="abc" id="abc" style="word-wrap: break-word;" ng-bind-html="x.toDoItemDescription"></div>
+                </div>
+                <div class="showIconBar">
+                  <span>
+					<button data-toggle="dropdown" data-ng-show="display"
+						style="border: none;" class="dropdown-toggle btnedit"type="button">
+						<img src="https://maxcdn.icons8.com/windows8/PNG/26/Hands/reminder-26.png"
+							style="background-color: rgba(255, 255, 255, 0) !important; width: 20px"title="Reminder">
+					</button>
+						<div class="dropdown-menu"
+							style="margin-left: 35px; min-width: 255px; top: 75%; padding: 5px; line-height: 2.5">
+							<div>Reminder:</div>
+								<hr>
+							<div data-ng-click="tdctl.doReminder(x.id,$index,'Today')">
+								<span>Later today</span>
+                       			 <span style="float: right; padding-right: 10px">20:00</span>
+                      		</div>
+	                      <div data-ng-click="tdctl.doReminder(x.id,$index,'Tomorrow')">
+	                        <span>Tomorrow</span>
+	                        <span style="float: right; padding-right: 10px">08:00</span>
+	                      </div>
+	                      <div data-ng-click="tdctl.doReminder(x.id,$index,'Next-Week')">
+	                        <span>Next Week</span>
+	                        <span style="float: right; padding-right: 10px">08:00</span>
+	                      </div>
+	                      <div>
+	                        <span>Home</span>
+	                        <span style="float: right; padding-right: 10px"></span>
+	                      </div>
+	                      <div>
+	                        <span class="glyphicon glyphicon-time"></span>
+	                        <span style="margin-left: 15px">Select Date and Time</span>
+	                      </div>
+                    	</div>
+                  </span> 
+                  <span>
+					<button data-toggle="dropdown" id="d"style="border: none;" data-ng-show="display"
+						class=" dropdown-toggle btnedit" type="button">
+						<i class="glyphicon glyphicon-option-vertical"></i>
+					</button>
+					<div class="dropdown-menu"
+						style="margin-left: 75px; min-width: 150px; top: 75%; padding: 5px; line-height: 2.5">
+						<div data-ng-click="tdctl.deleteTask(x.id)">
+						<span>Delete note</span>
+                      </div>
+                      <div data-ng-click="">
+                          <span>Add label</span>
+                      </div>
+                      <div data-ng-click="copyItem(x)">
+                          <span>Make a copy</span>
+                      </div>
+                      <div>
+                          <span>Copy to Google Docs</span>
+                      </div>
+                    </div>
+                  </span> 
+                  <span class="dropup">
+					<button data-ng-style="cardColor"class="dropdown-toggle btnedit" type="button"
+						data-toggle="dropdown" data-ng-show="display">
+						<img src="https://maxcdn.icons8.com/Android_L/PNG/24/Editing/paint_palette-24.png"
+							style="background-color: rgba(255, 255, 255, 0) !important"
+							title="Pick Color" width="20" height="20">
+					</button>
+						<div id="test" style="width: auto;" class="dropdown-menu"role="menu" aria-labelledby="menu1">
+							<ul class="ul" style="padding-left: 20px">
+								<li>
+									<div data-ng-click="changeCardColor('White',$event,$index,x.id)"
+										style="background-color: transparent;" class="test1">
+	                     			</div>
+									<div data-ng-click="changeCardColor('#ff6666',$event,$index,x.id)"
+										style="background-color: #ff6666;" class="test1">
+	                     			</div>
+									<div data-ng-click="changeCardColor('#ffa366',$event,$index,x.id)"
+										style="background-color: #ffa366;" class="test1">
+	                     			</div>
+								</li>
+								<hr>
+								<li>
+									<div data-ng-click="changeCardColor('#bfbfbf',$event,$index,x.id)"
+										style="background-color: #bfbfbf;" class="test1">
+	                     			</div>
+									<div data-ng-click="changeCardColor('#99d6ff',$event,$index,x.id)"
+										style="background-color: #99d6ff;" class="test1">
+	                     			</div>
+									<div data-ng-click="changeCardColor('#ccffb3',$event,$index,x.id)"
+										style="background-color: #ccffb3;" class="test1">
+	                     			</div>
+								</li>
+							</ul>
+						</div>
+					</span> 
+	             	<span>
+						<button data-ng-style="cardColor" class="dropdown-toggle btnedit" type="button"
+							data-toggle="dropdown" data-ng-show="display"data-ng-click="shareViaFB(x)">
+							<img src="https://maxcdn.icons8.com/Android/PNG/24/Social_Networks/facebook-24.png"
+							style="background-color: rgba(255, 255, 255, 0) !important"title="Share with facebok" 
+	                 						width="20" height="20">
+						</button>
+					</span>
+                </div>
+                <div data-ng-if="x.reminder" style="border-top: 1px dotted #000">
+                  <span class="glyphicon glyphicon-time" data-ng-if="x.reminder"></span> 
+                  <span style="margin-left: 5px; color: graytext;" data-ng-if="x.reminder">Reminder:</span> 
+                  <span style="color: graytext" data-ng-if="x.reminder">{{x.reminder | date }}</span> 
+                  <span class="glyphicon glyphicon-remove-circle" style="float: right;" 
+                    data-ng-click="tdctl.deleteReminder(x.id,$index)" data-ng-if="x.reminder">
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
