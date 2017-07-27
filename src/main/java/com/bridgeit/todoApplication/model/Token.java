@@ -3,11 +3,14 @@ package com.bridgeit.todoApplication.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
-
+@Entity
+@Table
 public class Token implements Serializable{
 private static final long serialVersionUID = 1L;
 	
@@ -15,7 +18,7 @@ private static final long serialVersionUID = 1L;
 	@GenericGenerator(name="abc", strategy="increment")
 	@GeneratedValue(generator="abc")
 	private int id;
-	private int userid;
+	private long userid;
 	private String accessToken;
 	private String refreshToken;
 	private Date createdOn;
@@ -31,11 +34,11 @@ private static final long serialVersionUID = 1L;
 		this.id = id;
 	}
 
-	public int getUserid() {
+	public long getUserid() {
 		return userid;
 	}
 
-	public void setUserid(int userid) {
+	public void setUserid(long userid) {
 		this.userid = userid;
 	}
 

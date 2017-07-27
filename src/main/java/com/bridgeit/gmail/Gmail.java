@@ -72,7 +72,7 @@ public class Gmail {
 		f.param("grant_type", "authorization_code");
 		//?client_id=%s&client_secret=%s&redirect_uri=%s&code=%s&grant_type=authorization_code";
 
-		Response response =  target.request().accept(MediaType.APPLICATION_JSON).post( Entity.form(f) ); //method(HttpMethod.POST);
+		Response response =  target.request().accept(MediaType.APPLICATION_JSON).post( Entity.form(f)); //method(HttpMethod.POST);
 		GmailToken gmailToken = response.readEntity(GmailToken.class);
 	/*	Response response =  target.request().accept(MediaType.APPLICATION_JSON).get();*/
 		//GmailToken gToken = response.readEntity(GmailToken.class);

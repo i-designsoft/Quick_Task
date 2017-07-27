@@ -75,6 +75,9 @@
 				<value>
 					com.bridgeit.todoApplication.model.ToDoItem
 				</value>
+				<value>
+					com.bridgeit.todoApplication.model.Token
+				</value>
 				
 			</list>
 		</property>
@@ -95,8 +98,8 @@
 	<bean id="toDoItemDAO" class="com.bridgeit.todoApplication.DAO.DAOImpl.ToDoItemDAOImpl"></bean>
 	<bean id="userservice" class="com.bridgeit.todoApplication.service.ServiceImpl.UserServiceImpl"></bean>
 	<bean id="toDoItemService" class="com.bridgeit.todoApplication.service.ServiceImpl.ToDoItemServieImpl"></bean>
-	
-	
+	<bean id="tokenDAO" class="com.bridgeit.todoApplication.DAO.DAOImpl.TokenDAOImpl"></bean>
+	<bean id="tokenService" class="com.bridgeit.todoApplication.service.ServiceImpl.TokenServiceImpl"></bean>
 	
 	<!-- hEROKU dEPLOYMENT bEAN -->
 	<!-- <bean class="java.net.URI" id="dbUrl">

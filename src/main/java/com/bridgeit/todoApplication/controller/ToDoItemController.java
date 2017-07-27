@@ -34,7 +34,7 @@ public class ToDoItemController {
 	@Autowired
     ToDoItemService toDoItemService;
 	
-	//-------------------Retrieve All ToDoItem--------------------------------------------------------
+	//-------------------------------------Retrieve All ToDoItem--------------------------------------
     
     /**
      * Method return all task Corresponding to Logged in User.
@@ -114,7 +114,8 @@ public class ToDoItemController {
         }*/
 		HttpSession session = request.getSession();
         Date date = new Date();
-        toDoItem.setPinned("false");
+        toDoItem.setIsPinned("false");
+        toDoItem.setIsArchive("false");
         toDoItem.setToDoCreatedDate(date);
         toDoItem.setUser((User) session.getAttribute("user"));
  
@@ -194,7 +195,7 @@ public class ToDoItemController {
     	todo.setUser(user);
 		todo.setId(taskId);
 		todo.setToDoCreatedDate(new Date());
-		todo.setPinned("true");
+		todo.setIsPinned("true");
 		System.out.println("inside pined");
 
 		try {
@@ -216,8 +217,31 @@ public class ToDoItemController {
     	todo.setUser(user);
 		todo.setId(taskId);
 		todo.setToDoCreatedDate(new Date());
-		todo.setPinned("false");
+		todo.setIsPinned("false");
 		System.out.println("inside pined");
+
+		try {
+			toDoItemService.saveToDoItem(todo);
+			
+			return new ResponseEntity<ToDoItem>(HttpStatus.OK);
+		} catch (Exception e) {
+			
+			return new ResponseEntity<ToDoItem>(HttpStatus.NOT_MODIFIED);
+		}
+    }
+    
+ //------------------make Unarchived Task----------------------------------
+    
+    @RequestMapping(value = "/unArchiveTask/{id}", method = RequestMethod.POST)
+    public ResponseEntity<ToDoItem> unArchiveTask(@RequestBody ToDoItem todo, @PathVariable("id") int taskId, HttpServletRequest request) {
+    	HttpSession session=request.getSession();
+    	User user=(User) session.getAttribute("user");
+        
+    	todo.setUser(user);
+		todo.setId(taskId);
+		todo.setToDoCreatedDate(new Date());
+		todo.setIsArchive("false");
+		System.out.println("inside Unarchived");
 
 		try {
 			toDoItemService.saveToDoItem(todo);
@@ -265,7 +289,7 @@ public class ToDoItemController {
 		}
     }
     
-//----------------------Find Archived Task--------------------------------
+//----------------------Find A srchived Task--------------------------------
     
     @RequestMapping(value = "/archivedTaskList", method = RequestMethod.GET)
     public ResponseEntity<List<ToDoItem>> listAllArchivedItems(HttpServletRequest request) {

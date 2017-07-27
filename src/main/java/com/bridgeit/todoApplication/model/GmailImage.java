@@ -1,7 +1,8 @@
 package com.bridgeit.todoApplication.model;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-@JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GmailImage {
 private String url;
 	

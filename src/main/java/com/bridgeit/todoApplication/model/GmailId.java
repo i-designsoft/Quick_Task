@@ -1,8 +1,8 @@
 package com.bridgeit.todoApplication.model;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GmailId {
 	private String value;
 	private String type;

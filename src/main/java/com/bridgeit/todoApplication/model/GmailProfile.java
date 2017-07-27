@@ -2,9 +2,9 @@ package com.bridgeit.todoApplication.model;
 
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GmailProfile {
 	private String id;
 	private List<GmailId> emails;

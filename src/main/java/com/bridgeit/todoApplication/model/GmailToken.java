@@ -1,8 +1,8 @@
 package com.bridgeit.todoApplication.model;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GmailToken {
 	String access_token; 
 	String token_type;

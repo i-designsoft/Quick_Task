@@ -1,12 +1,15 @@
 angular.module("todoApp")
 .filter('pinnedFilter', function() {
 
-	  // Create the return function and set the required parameter name to **input**
+	  // Create the return function and set the required parameter name to
+		// **input**
 	  return function(todos) {
 
 	    var filterTodos = [];
 
-	    // Using the angular.forEach method, go through the array of data and perform the operation of figuring out if the language is statically or dynamically typed.
+	    // Using the angular.forEach method, go through the array of data and
+		// perform the operation of figuring out if the language is statically
+		// or dynamically typed.
 	    angular.forEach(todos, function(todo) {
 	    	console.log(todo.isPinned);
 	      if (todo.isPinned === "false" || !todo.isPinned) {
@@ -19,7 +22,7 @@ angular.module("todoApp")
 	  }
 
 	})
-.controller("toDoCtrl", function($scope, $interval,$state,$window, toDoService, ModalService, $filter, $http) {
+.controller("toDoCtrl", function($scope,$rootScope, $interval,$state,$window, toDoService, ModalService, $filter, $http) {
 
     $scope.user = {};
     $scope.archivedTask = [];
@@ -31,9 +34,11 @@ angular.module("todoApp")
     $scope.active1 = true;
     $scope.notifications1=[];
     $scope.isPin=0;
-    
-    
+	 $scope.collabar = false;
+
   
+    
+    
     this.note=function(){
     	console.log("redirect to another page as ToDoItem ...");
     	$state.go('toDoItem');
@@ -52,24 +57,15 @@ angular.module("todoApp")
             xfbml      : true
         });
         
-      /*  
-        var fbShare = function() {
-            FB.ui({
-                method: "feed",
-                display: "iframe",
-                link: "http://example.com/",
-                caption: "Example.com",
-                description: "Here is the text I want to share.",
-                picture: "http://example.com/image.png"
-            });
-        };
-        $("#fb-publish").click(function() {
-            FB.login(function(response) {
-                if (response.authResponse) {
-                    fbShare();
-               }
-            }, {scope: 'publish_stream'});
-        });*/
+      /*
+		 * var fbShare = function() { FB.ui({ method: "feed", display: "iframe",
+		 * link: "http://example.com/", caption: "Example.com", description:
+		 * "Here is the text I want to share.", picture:
+		 * "http://example.com/image.png" }); };
+		 * $("#fb-publish").click(function() { FB.login(function(response) { if
+		 * (response.authResponse) { fbShare(); } }, {scope: 'publish_stream'});
+		 * });
+		 */
         
         FB.ui({
             method: 'share_open_graph',
@@ -79,7 +75,7 @@ angular.module("todoApp")
                    // your url to share
                    'og:title': todo.title,
                    'og:description': todo.toDoItemDescription,
-                   /*'og:image': 'http://example.com/link/to/your/image.jpg'*/
+                   /* 'og:image': 'http://example.com/link/to/your/image.jpg' */
                 }
             })
             },
@@ -96,36 +92,21 @@ angular.module("todoApp")
 };
 
     
- $scope.notifications=function(id){
-	 var todayDate =new Date().getTime();
-	
-	 var obj;
-	 var futureDate;
-	 console.log(todayDate);
-	 
-	 	for (i = 0; i < $scope.todos.length; i++)
-    	{
-        	if($scope.todos[i].id==id)
-        	{
-        		obj=$scope.todos[i];
-        	}
-        	
-    	}
-	 	futureDate=obj.reminder;
-	 	console.log(futureDate);
-	 	
-	 	console.log(futureDate==todayDate);
-	 	
-	 	
-	//selected dueDate is in the future
-	
-	if (futureDate == todayDate) {
-	   alert('Task Due date is due today!');
-	}
- };
-  
-  
-  
+		
+		$scope.isList = false;
+		var cView = readCookie('view');
+		if( 'true' == cView )
+		{
+			$scope.isList = true;
+		}
+		else
+		{	
+			$scope.isList = false;
+		}
+		this.changeView = function(){
+			writeCookie('view', $scope.isList);
+		}
+
   
   
   
@@ -187,11 +168,12 @@ angular.module("todoApp")
        
        console.log(obj);
        toDoService.updateToDoItem(id,obj);
-        /*console.log($scope.todos[index].reminder);
-        console.log(day);
-        console.log(index);*/
-        /*toDoService.updateToDoItem(id,obj);*/
-   /*     toDoService.updateToDoItem(id,obj);*/
+        /*
+		 * console.log($scope.todos[index].reminder); console.log(day);
+		 * console.log(index);
+		 */
+        /* toDoService.updateToDoItem(id,obj); */
+   /* toDoService.updateToDoItem(id,obj); */
         console.log("color changed");
         $(e.target).closest(".card").css("background-color", color);
     };
@@ -240,11 +222,12 @@ angular.module("todoApp")
        
        
        toDoService.updateToDoItem(id,obj);
-        /*console.log($scope.todos[index].reminder);
-        console.log(day);
-        console.log(index);*/
-        /*toDoService.updateToDoItem(id,obj);*/
-   /*     toDoService.updateToDoItem(id,obj);*/
+        /*
+		 * console.log($scope.todos[index].reminder); console.log(day);
+		 * console.log(index);
+		 */
+        /* toDoService.updateToDoItem(id,obj); */
+   /* toDoService.updateToDoItem(id,obj); */
         console.log("color changed");
         $(e.target).closest(".card").css("background-color", color);
     };
@@ -268,11 +251,12 @@ angular.module("todoApp")
        
        
        toDoService.updateToDoItem(id,obj);
-        /*console.log($scope.todos[index].reminder);
-        console.log(day);
-        console.log(index);*/
-        /*toDoService.updateToDoItem(id,obj);*/
-   /*     toDoService.updateToDoItem(id,obj);*/
+        /*
+		 * console.log($scope.todos[index].reminder); console.log(day);
+		 * console.log(index);
+		 */
+        /* toDoService.updateToDoItem(id,obj); */
+   /* toDoService.updateToDoItem(id,obj); */
         console.log("color changed");
         $(e.target).closest(".card").css("background-color", color);
     };
@@ -309,7 +293,8 @@ $scope.setNotification=function(id){
 	   console.log("reminder set");
 	   }
 }
-    //------------------------ Set Reminder of a ToDoItem---------------------------------
+    // ------------------------ Set Reminder of a
+	// ToDoItem---------------------------------
 
     this.doReminder = function(id, index, day) {
         console.log(id, index);
@@ -364,24 +349,16 @@ $scope.setNotification=function(id){
     
     // Set List or grid view in cookie to open same view when reopen browser
     // read from cookie
-    /*$scope.isList = false;
-    var cView = readCookie('view');
-    // console.log('view',cView)
-    if ('true' == cView) {
-        // console.log('if');
-        $scope.isList = true;
-    } else { // console.log('else');
-        $scope.isList = false;
-    }
-    // console.log('is list ', $scope.isList);
-
-    this.changeView = function() {
-        // store in cookie
-        // isList = !isList;
-        // console.log('change view', $scope.isList);
-        writeCookie('view', $scope.isList);
-    }
-*/
+    /*
+	 * $scope.isList = false; var cView = readCookie('view'); //
+	 * console.log('view',cView) if ('true' == cView) { // console.log('if');
+	 * $scope.isList = true; } else { // console.log('else'); $scope.isList =
+	 * false; } // console.log('is list ', $scope.isList);
+	 * 
+	 * this.changeView = function() { // store in cookie // isList = !isList; //
+	 * console.log('change view', $scope.isList); writeCookie('view',
+	 * $scope.isList); }
+	 */
     function writeCookie(cname, cvalue) {
         var d = new Date();
         d.setTime(d.getTime() + (30 * 24 * 60 * 60 * 1000));
@@ -451,7 +428,8 @@ $scope.setNotification=function(id){
 
 
 
-    //-----------------------Make a toDoItem Card as Sortable --------------------------------
+    // -----------------------Make a toDoItem Card as Sortable
+	// --------------------------------
     
     $(".slides").sortable({
         placeholder: 'slide-placeholder',
@@ -499,14 +477,57 @@ $scope.setNotification=function(id){
         	
         	console.log(temp);
         	console.log(ui.item.index());
-        	/*var httpObje=toDoService.saveItemPosition();*/
+        	/* var httpObje=toDoService.saveItemPosition(); */
         }
     });
 
 
+    $scope.openCollaborator = function(obj,index) {
+    	console.log("vfkbnknknkbnkbngkbgngnbkgnbklgnkgnbgklnbkglnbkgnbkgnbklgnbkl");
+    	ModalService.showModal({
+            templateUrl: "template/collaborator.html",
+            controller: function($scope, close) {
+                $scope.todo = obj;
+                $scope.index = index;
+                $scope.close = function(result) {
+                    close(result, 500); // close, but give 500ms for
+                    // bootstrap to animate
+                };
+            },
+            controllerAs: "$modalCtrl"
+        }).then(function(modal) {
+            modal.element.modal();
+            modal.close.then(function(result) {
+            $scope.yesNoResult = result ? "You said Yes" : "You said No";
+            });
+        });
+    };
+ // ------------------Open Popup for Collaborators ------------------
+    
+    $scope.openCollaboratorPopup = function() {
+        console.log(obj);
+        $scope.collabar = true;
+        ModalService.showModal({
+            templateUrl: "template/collaborator.html",
+            controller: function($scope, close) {
+                $scope.todo = obj;
+                $scope.index = index;
+                $scope.close = function(result) {
+                    close(result, 500); // close, but give 500ms for
+                    // bootstrap to animate
+                };
+            },
+            controllerAs: "$modalCtrl"
+        }).then(function(modal) {
+            modal.element.modal();
+            modal.close.then(function(result) {
+            $scope.yesNoResult = result ? "You said Yes" : "You said No";
+            });
+        });
+    };
 
-
-    // ------------------Open Popup Function to edit or Update Particular ToDoItem. ------------------
+    // ------------------Open Popup Function to edit or Update Particular
+	// ToDoItem. ------------------
     
     $scope.openPopup = function(obj, index) {
         console.log(obj);
@@ -541,10 +562,12 @@ $scope.setNotification=function(id){
 
 
 
+    
+    
 
    
 
-    //-----------------Logout Function-------------------------------
+    // -----------------Logout Function-------------------------------
     
     this.logout = function() {
         console.log('logout');
@@ -573,6 +596,8 @@ $scope.setNotification=function(id){
                 reminder: rem1,
                 toDoItemDescription: toDoItemDescription1,
                 color: "#fff",
+                isPinned: "false",
+                isArchive: "false"
             };
         console.log(toDoItem);
         var httpObje = toDoService.addingToDo(toDoItem).then(function(){
@@ -580,7 +605,7 @@ $scope.setNotification=function(id){
         })        
     }
 
-    //--------------Delete Function to Delete a Task By ID--------------
+    // --------------Delete Function to Delete a Task By ID--------------
     
     this.deleteTask = function(id) {
         console.log(id);
@@ -590,11 +615,11 @@ $scope.setNotification=function(id){
         })
     };
     
-    //---------------------Archive Function-------------------------------
+    // ---------------------Archive Function-------------------------------
     
     this.archiveTask = function(id , index){
     	var obj;
-    	console.log("inside  dnfvvnfkjvf");
+    	console.log("inside  archive");
     	for (i = 0; i < $scope.todos.length; i++)
        	{
            	if($scope.todos[i].id==id)
@@ -608,8 +633,25 @@ $scope.setNotification=function(id){
        $state.reload();
     }
     
+ // ---------------------UnArchive Function-------------------------------
     
-    //----------------Pinned Function ---------------------------------
+    this.unarchiveTask = function(id,index){
+    	var obj;
+    	console.log("inside  unarchive");
+    	for (i = 0; i < $scope.todos.length; i++)
+       	{
+           	if($scope.todos[i].id==id)
+           	{
+           		obj=$scope.todos[i];
+           	}
+       	}
+       obj.isArchive="false";
+       console.log(obj);
+       toDoService.makeUnArchiveTask(id,obj);
+       $state.reload();
+    }
+    
+    // ----------------Pinned Function ---------------------------------
     
    this.pinned=function(id,index){
 	   var obj;
@@ -627,10 +669,10 @@ $scope.setNotification=function(id){
        console.log(obj);
        console.log( $scope.isPin);
        toDoService.makePinnedTask(id,obj);
-      //$state.reload();
+      // $state.reload();
    }
 
-   //---------------Make Pinned Task to Unpinned---------------------------
+   // ---------------Make Pinned Task to Unpinned---------------------------
    
    this.unPinned=function(id,index){
 	   var obj;
@@ -653,7 +695,7 @@ $scope.setNotification=function(id){
    
    $scope.hidePinned = function(){
 	   return $scope.todos.some(function(someData){
-		   return someData.isPinned==='true';
+		   return someData.isPinned==='true' && someData.isArchive === 'false';
 	   });
    }
    $scope.hideOther = function(){
@@ -663,7 +705,7 @@ $scope.setNotification=function(id){
    }
    
 
-   //-------------------Update Function for Task Modification----------------
+   // -------------------Update Function for Task Modification----------------
    
     this.update = function(id, index, objj) {
         var title = $($('#title' + id).html()).html();
@@ -688,39 +730,30 @@ $scope.setNotification=function(id){
     }
 
 
-    //------------------Get All Archived Task-------------------------
-    
-    toDoService.listAllArchivedTask().then(function(data){
-    	if(data.status === 200){
-    		console.log(data.data);
-    		$scope.archivedTask=data.data;
-    	}else{
-    		console.log("Nothing Archived..")
-    	}
-    }).catch(function(err) {
-        console.log(err);
-    });
-    
-    
-    //------------------Get All Pinned Task-------------------------
-   /* 
-    toDoService.listAllPinnedTask().then(function(data){
-    	if(data.status === 200){
-    		console.log(data.data);
-    		$scope.pinnedTask=data.data;
-    	}else{
-    		console.log("Nothing Pinned..")
-    	}
-    }).catch(function(err) {
-        console.log(err);
-    });*/
+    // ------------------Get All Archived Task-------------------------
+  /*
+	 * toDoService.listAllArchivedTask().then(function(data){ if(data.status ===
+	 * 200){ console.log(data.data); $scope.archivedTask=data.data; }else{
+	 * console.log("Nothing Archived..") } }).catch(function(err) {
+	 * console.log(err); });
+	 * 
+	 */
+    // ------------------Get All Pinned Task-------------------------
+   /*
+	 * toDoService.listAllPinnedTask().then(function(data){ if(data.status ===
+	 * 200){ console.log(data.data); $scope.pinnedTask=data.data; }else{
+	 * console.log("Nothing Pinned..") } }).catch(function(err) {
+	 * console.log(err); });
+	 */
     
     
-    //---------------Get All Task-----------------------------------
+    // ---------------Get All Task-----------------------------------
     toDoService.listAllToDo().then(function(data) {
         if (data.status === 200) {
         	console.log(data.data);
             $scope.todos = data.data;
+            console.log($scope.todos);
+         
         } else {
             console.log("else..");
         }
@@ -730,7 +763,7 @@ $scope.setNotification=function(id){
 
 
 
-    //---------------Get Current Logged in User---------------------
+    // ---------------Get Current Logged in User---------------------
     
     toDoService.getUser().then(function(data) {
         if (data.status === 200) {
@@ -760,12 +793,10 @@ $scope.setNotification=function(id){
         });
     }
 
-  /*  this.listAllPinnedTask = function() {
-        return $http({
-            url: "/toDoApp/pinnedTaskList",
-            method: "get"
-        });
-    }*/
+  /*
+	 * this.listAllPinnedTask = function() { return $http({ url:
+	 * "/toDoApp/pinnedTaskList", method: "get" }); }
+	 */
     this.listAllToDo = function() {
         return $http({
             url: "/toDoApp/toDoList",
@@ -815,6 +846,13 @@ $scope.setNotification=function(id){
     this.makeArchiveTask = function(id,todo){
     	return $http({
     		url: "/toDoApp/archiveTask/" + id,
+    		method: "post",
+    		data: todo
+    	});
+    }
+    this.makeUnArchiveTask = function(id,todo){
+    	return $http({
+    		url: "/toDoApp/unArchiveTask/" + id,
     		method: "post",
     		data: todo
     	});

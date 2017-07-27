@@ -1,10 +1,12 @@
 package com.bridgeit.todoApplication.controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,7 +28,9 @@ import com.bridgeit.todoApplication.JSON.Response;
 import com.bridgeit.todoApplication.JSON.TokenResponse;
 import com.bridgeit.todoApplication.model.FBProfile;
 import com.bridgeit.todoApplication.model.GmailProfile;
+import com.bridgeit.todoApplication.model.Token;
 import com.bridgeit.todoApplication.model.User;
+import com.bridgeit.todoApplication.service.TokenService;
 import com.bridgeit.todoApplication.service.UserService;
 
 @RestController
@@ -36,6 +40,8 @@ public class LoginController  {
 	@Autowired
     UserService userservice;
 	
+	@Autowired
+	TokenService tokenService;
 	
 	protected static Logger logger = Logger.getLogger("LoginController");
 	
@@ -43,6 +49,8 @@ public class LoginController  {
 	public @ResponseBody Response getEmployeeById(@RequestBody Map<String, String> loginMap, HttpServletRequest request,
 			HttpServletResponse response) {
 		User user = null;
+		String accessToken = UUID.randomUUID().toString().replaceAll("-", "");
+		String refreshToken = UUID.randomUUID().toString().replaceAll("-", "");
 
 		HttpSession session = request.getSession();
 		try {
@@ -63,19 +71,33 @@ public class LoginController  {
 			er.setMessage("Invalid credential, Please check email or password");
 			return er;
 		}
-		session.setAttribute("user", user);
-		LoginResponse lr = new LoginResponse();
-		
-		lr.setStatus(1);
-		logger.info("User Login Success..."+user);
-		lr.setMessage("User logged succesfully");
-		TokenResponse tr = new TokenResponse();
-		tr.getAccessToken();
-		tr.getRefreshToken();
-		tr.setStatus(1);
+		else{
+			Token token = new Token();
+			token.setCreatedOn(new Date());
+			token.setAccessToken(accessToken);
+			token.setRefreshToken(refreshToken);
+			token.setUserid(user.getId());
+			
+			tokenService.createNewToken(token);
+			
+			session.setAttribute("user", user);
+			
+			LoginResponse lr = new LoginResponse();
+			
+			lr.setStatus(1);
+			logger.info("User Login Success..."+user);
+			lr.setMessage("User logged succesfully");
+			TokenResponse tr = new TokenResponse();
+			tr.getAccessToken();
+			tr.getRefreshToken();
+			tr.setStatus(1);
 
-		
-		return tr;
+			Cookie cookie = new Cookie("AccessToken", token.getAccessToken());
+			response.addCookie(cookie);
+			System.out.println(cookie.getValue().toString());
+			return tr;
+			}
+			
 	}
 	@RequestMapping(value="/logout",method=RequestMethod.GET)
 	public ResponseEntity<Boolean> logoutUser(HttpServletRequest request){

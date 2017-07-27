@@ -61,6 +61,7 @@ public class ToDoItem implements Serializable {
 		this.isArchive = isArchive;
 		
 	}
+
 	public long getId() {
 		return id;
 	}
@@ -93,14 +94,6 @@ public class ToDoItem implements Serializable {
 		this.toDoCreatedDate = toDoCreatedDate;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public Date getReminder() {
 		return reminder;
 	}
@@ -117,14 +110,6 @@ public class ToDoItem implements Serializable {
 		this.color = color;
 	}
 
-	public String isPinned() {
-		return isPinned;
-	}
-
-	public void setPinned(String isPinned) {
-		this.isPinned = isPinned;
-	}
-
 	public String getIsPinned() {
 		return isPinned;
 	}
@@ -132,14 +117,6 @@ public class ToDoItem implements Serializable {
 	public void setIsPinned(String isPinned) {
 		this.isPinned = isPinned;
 	}
-/*
-	public long getIndex() {
-		return index;
-	}
-
-	public void setIndex(long index) {
-		this.index = index;
-	}*/
 
 	public String getIsArchive() {
 		return isArchive;
@@ -149,12 +126,12 @@ public class ToDoItem implements Serializable {
 		this.isArchive = isArchive;
 	}
 
-	/*public int getCardIndex() {
-		return cardIndex;
+	public User getUser() {
+		return user;
 	}
 
-	public void setCardIndex(int cardIndex) {
-		this.cardIndex = cardIndex;
+	public void setUser(User user) {
+		this.user = user;
 	}
-*/
+	
 }
